@@ -1,2 +1,3 @@
-# rtthread-specification
-The specification for RT-Thread porting, device driver implementation.
+# RT-Thread 移植、设备驱动接口实现规范
+
+本文档描述了如何进行RT-Thread针对一个芯片架构的移植，以及设备驱动的接口规范。这样系统工程师可以通过本文档进行RT-Thread对不同芯片的移植，并编写对应的外设驱动，集成到整个RT-Thread系统中。
