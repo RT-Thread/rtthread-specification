@@ -18,7 +18,7 @@ MCU型号名称_BOARD名称
 
 * applications - 放置用户入口，例如mail.c，及用户应用；
 * drivers - 放置板载驱动；
-* librires - 和MCU相关的固件库；
+* libraries - 和MCU相关的固件库；
 
 BSP文件夹下需要包含一份本BSP的说明README.md，至少包括：
 
