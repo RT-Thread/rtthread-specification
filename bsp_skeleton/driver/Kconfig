@@ -1,0 +1,19 @@
+config RT_USING_UART1
+    bool "Enable UART1 (GPIO0/1)"
+    default y
+
+config RT_USING_I2C1
+    bool "Enable I2C1 (GPIO0/1)"
+    default y
+
+config RT_USING_SPI1
+    bool "Enable SPI1 (GPIO0/1)"
+    default y
+
+if RT_USING_LWIP
+
+config RT_EMAC_RMII
+    bool "Use RMII mode for EMAC"
+    default y
+
+endif

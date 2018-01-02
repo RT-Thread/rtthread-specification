@@ -12,15 +12,15 @@ MCU型号名称_BOARD名称
 
 `stm32l476-nucleo`
 
-<stm32l476rg，后面的rg可以根据情况保留或去掉>
+<stm32l476rg，后面的rg可以根据情况保留>
 
 ### BSP文件下的子文件夹，及文件名
 
 对一份BSP，建议其下包含如下的子文件夹：
 
-* applications - 放置用户入口，例如mail.c，及用户应用；
-* drivers - 放置板载驱动；
-* libraries - 和MCU相关的固件库；
+* applications - 放置用户入口，例如main.c，及用户应用；
+* drivers      - 放置板载驱动；
+* libraries    - 和MCU相关的固件库；
 
 BSP文件夹下需要包含一份本BSP的说明README.md，至少包括：
 
@@ -28,11 +28,20 @@ BSP文件夹下需要包含一份本BSP的说明README.md，至少包括：
 * 开发板简介
 * 当要在这块开发板上使用RT-Thread时，相关的注意事项。<例如串口用法（波特率，哪个串口等），烧写，调试等>
 
-### drivers文件夹
+#### applications文件夹
+
+`bsp/applications` 文件夹下放置用户程序入口，包括：
+
+* main.c -- 用户程序主入口
+* mnt.c  -- 文件系统装载表相关初始化；
+
+#### drivers文件夹
 
 `bsp/drivers` 文件夹下放置和板子相关的驱动（可能也包括一部分芯片外设驱动），文件命名风格请按照以下的方式：
 
     drv_*.c/.h
+
+同时也存在板级初始化相关的文件，命名为 board.c/.h。
 
 ## libcpu文件夹
 
