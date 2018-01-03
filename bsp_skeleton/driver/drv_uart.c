@@ -19,7 +19,6 @@
  *
  * Change Logs:
  * Date           Author       Notes
- * 2017-5-30      Bernard      the first version
  */
 
 #include <rthw.h>
@@ -34,16 +33,15 @@ struct device_uart
     rt_uint32_t hw_base;
 
     rt_uint32_t irqno;
-    char name[RT_NAME_MAX];
 };
 
-static rt_err_t uart_configure          (struct rt_serial_device *serial, struct serial_configure *cfg);
-static rt_err_t uart_control            (struct rt_serial_device *serial, int cmd, void *arg);
-static int      uart_putc               (struct rt_serial_device *serial, char c);
-static int      uart_getc               (struct rt_serial_device *serial);
-static rt_size_t uart_dma_transmit      (struct rt_serial_device *serial, rt_uint8_t *buf, rt_size_t size, int direction);
+static rt_err_t  uart_configure    (struct rt_serial_device *serial, struct serial_configure *cfg);
+static rt_err_t  uart_control      (struct rt_serial_device *serial, int cmd, void *arg);
+static int       uart_putc         (struct rt_serial_device *serial, char c);
+static int       uart_getc         (struct rt_serial_device *serial);
+static rt_size_t uart_dma_transmit (struct rt_serial_device *serial, rt_uint8_t *buf, rt_size_t size, int direction);
 
-static void     uart_irq_handler        (int irqno, void *param);
+static void     uart_irq_handler   (int irqno, void *param);
 
 const struct rt_uart_ops _uart_ops =
 {

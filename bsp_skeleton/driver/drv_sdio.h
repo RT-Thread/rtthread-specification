@@ -1,7 +1,7 @@
 /*
- * File      : drv_wdt.h
+ * File      : drv_sdio.h
  * This file is part of RT-Thread RTOS
- * COPYRIGHT (C) 2017, RT-Thread Development Team
+ * COPYRIGHT (C) 2017 - 2018, RT-Thread Development Team
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,9 +21,7 @@
  * Date           Author       Notes
  */
 
-#ifndef DRV_WDT_H__
-#define DRV_WDT_H__
-
-int rt_hw_wdt_init(void);
+#ifndef DRV_SDIO_H__
+#define DRV_SDIO_H__
 
 #endif

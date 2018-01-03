@@ -3,8 +3,53 @@
 from building import *
 
 cwd     = GetCurrentDir()
-src     = Glob('*.c') + Glob('*.cpp')
+src     = Split('''
+board.c
+drv_uart.c
+''')
 CPPPATH = [cwd]
+
+if GetDepend('RT_USING_PIN'):
+    src += ['drv_gpio.c']
+
+if GetDepend('RT_USING_PIN'):
+    src += ['drv_emac.c']
+
+if GetDepend('RT_USING_SDIO'):
+    src += ['drv_sdio.c']
+
+if GetDepend('RT_USING_CAN'):
+    src += ['drv_can.c']
+
+if GetDepend('RT_USING_HWTIMER'):
+    src += ['drv_hw_timer.c']
+
+if GetDepend('RT_USING_CPUTIME'):
+    src += ['drv_cputime.c']
+
+if GetDepend('RT_USING_I2C'):
+    src += ['drv_i2c.c']
+
+if GetDepend('RT_USING_SPI'):
+    src += ['drv_spi.c']
+
+if GetDepend('RT_USING_UIENGINE'):
+    src += ['drv_lcd.c']
+
+if GetDepend('RT_USING_PWM'):
+    src += ['drv_pwm.c']
+
+if GetDepend('RT_USING_RTC'):
+    src += ['drv_rtc.c']
+
+if GetDepend('RT_USING_WDT'):
+    src += ['drv_wdt.c']
+
+if GetDepend('RT_USING_MTD_NOR'):
+    src += ['drv_norflash.c']
+
+if GetDepend('RT_USING_MTD_NAND'):
+    src += ['drv_nandflash.c']
 
 group = DefineGroup('Drivers', src, depend = [''], CPPPATH = CPPPATH)
 

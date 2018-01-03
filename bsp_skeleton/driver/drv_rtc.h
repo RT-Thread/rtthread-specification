@@ -24,4 +24,6 @@
 #ifndef DRV_RTC_H__
 #define DRV_RTC_H__
 
+int rt_hw_rtc_init(void);
+
 #endif

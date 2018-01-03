@@ -21,5 +21,6 @@
  * Date           Author       Notes
  */
 
+#include <rtdevice.h>
 #include <rtthread.h>
 #include "drv_lcd.h"

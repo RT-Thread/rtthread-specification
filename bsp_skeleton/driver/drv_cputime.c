@@ -1,7 +1,7 @@
 /*
- * File      : drv_wdt.c
+ * File      : drv_cputime.c
  * This file is part of RT-Thread RTOS
- * COPYRIGHT (C) 2017, RT-Thread Development Team
+ * COPYRIGHT (C) 2017 - 2018, RT-Thread Development Team
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,45 +24,29 @@
 #include <rtdevice.h>
 #include <rtthread.h>
 
-#include "drv_wdt.h"
+#include "drv_cputime.h"
+#include <board.h>
 
-static rt_err_t _wdt_init(rt_watchdog_t *wdt)
+static float hw_cputime_getres(void)
 {
-	return RT_EOK;
+    return 0;
 }
 
-static rt_err_t _wdt_control(rt_watchdog_t *wdt, int cmd, void *arg)
+static uint32_t hw_cputime_gettime(void)
 {
-	switch (cmd)
-	{
-		case RT_DEVICE_CTRL_WDT_SET_TIMEOUT:
-			break;
-		case RT_DEVICE_CTRL_WDT_START:
-			break;
-		case RT_DEVICE_CTRL_WDT_STOP:
-			break;
-
-		case RT_DEVICE_CTRL_WDT_KEEPALIVE:
-			break;
-		default:
-			break;
-	}
-
-	return RT_EOK;
+    return 0;
 }
 
-struct rt_watchdog_ops _wdt_ops =
+const static struct rt_clock_cputime_ops _hw_cputime_ops = 
 {
-    _wdt_init,
-    _wdt_control
+    hw_cputime_getres,
+    hw_cputime_gettime
 };
 
-static struct rt_watchdog_device _wdt_device;
-int rt_hw_wdt_init(void)
+int hw_cputime_init(void)
 {
-    _wdt_device.ops = &_wdt_ops;
-    rt_hw_watchdog_register(&_wdt_device,"WDT",RT_DEVICE_FLAG_STANDALONE,&_wdt_param);
+    clock_cpu_setops(&_hw_cputime_ops);
 
-	return 0;
+    return 0;
 }
-INIT_DEVICE_EXPORT(rt_hw_wdt_init);
+INIT_BOARD_EXPORT(hw_cputime_init);

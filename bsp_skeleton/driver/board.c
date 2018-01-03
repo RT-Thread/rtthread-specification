@@ -19,7 +19,6 @@
  *
  * Change Logs:
  * Date           Author       Notes
- * 2017-5-30      Bernard      the first version
  */
 
 #include <rthw.h>
@@ -30,7 +29,7 @@
 
 void rt_hw_board_init(void)
 {
-    /* init hardware interrupt */
+    /* initialize hardware interrupt */
     rt_hw_uart_init();
 
 #ifdef RT_USING_CONSOLE
@@ -39,7 +38,7 @@ void rt_hw_board_init(void)
 #endif /* RT_USING_CONSOLE */
 
 #ifdef RT_USING_HEAP
-    /* init memory system */
+    /* initialize memory system */
     rt_system_heap_init(RT_HW_HEAP_BEGIN, RT_HW_HEAP_END);
 #endif
 

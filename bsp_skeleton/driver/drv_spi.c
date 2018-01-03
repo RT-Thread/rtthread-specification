@@ -55,8 +55,7 @@ static rt_uint32_t xfer(struct rt_spi_device* device, struct rt_spi_message* mes
     struct rt_spi_configuration *config = &device->config;
 }
 
-rt_err_t skt_spi_register(struct skt_spi_bus *spi_bus,
-    const char *bus_name)
+rt_err_t skt_spi_register(struct skt_spi_bus *spi_bus, const char *bus_name)
 {
     return rt_spi_bus_register(&spi_bus->parent, bus_name, &_spi_ops);
 }
