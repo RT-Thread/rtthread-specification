@@ -1,5 +1,5 @@
 /*
- * File      : drv_wlan.h
+ * File      : drv_wlan.c
  *             Wi-Fi driver
  * This file is part of RT-Thread RTOS
  * COPYRIGHT (C) 2017, RT-Thread Development Team
