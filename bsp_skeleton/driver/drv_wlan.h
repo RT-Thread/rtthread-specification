@@ -25,6 +25,6 @@
 #ifndef DRV_WLAN_H__
 #define DRV_WLAN_H__
 
-int hw_wlan_init(void);
+int rt_hw_wlan_init(void);
 
 #endif
