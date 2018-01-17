@@ -24,7 +24,7 @@
 
 #include <rtdevice.h>
 
-#if defined(RT_USING_LWIP) && (RT_USING_WIFI)
+#if defined(RT_USING_LWIP) && defined(RT_USING_WIFI)
 
 #include <wlan_dev.h>
 
