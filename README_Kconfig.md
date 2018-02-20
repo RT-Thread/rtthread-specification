@@ -1,6 +1,6 @@
 # BSP中的Kconfig文件说明
 
-标签： 文档模版
+标签： RT-Thread规范
 
 ---
 
