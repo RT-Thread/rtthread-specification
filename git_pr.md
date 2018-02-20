@@ -9,6 +9,7 @@
 * 不同的功能请分开来提交，不要把不相关的修改一次性都提交；
 * 提交时的message尽可能的使用英文描述，当然使用中文也问题不大；
 * 提交message分两部分，一个是message title，请以"[module] messsage"方式进行"[module]"部分，请填写正确的名称，可以参见以下的说明：
+
 | 前缀 | 说明 |
 | ---- | ---- |
 | [Kernel] | 内核或者"rt-thread/include"部分修改；|
