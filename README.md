@@ -18,12 +18,18 @@
 
 对一份BSP移植，需要遵循一定的命名规范，请参阅[这份文档][4]。
 
+## 板级支持包配置Kconfig
+
+自RT-Thread 3.0.x以来，推荐使用Kconfig来进行系统、外设的配置，详细情况请看 [Kconfig][5] 说明。
+
 ## 提交PR
 
-当完成一份BSP移植并需要提交到RT-Thread的git repo时，请参阅和PR相关的[文档][5]。
+当完成一份BSP移植并需要提交到RT-Thread的git repo时，请参阅和PR相关的[文档][6]。
+
 
   [1]: porting/README.md
   [2]: drivers/README.md
   [3]: bsp_skeleton/
   [4]: name-specification.md
-  [5]: git_pr.md
+  [5]: README_Kconfig.md
+  [6]: git_pr.md
