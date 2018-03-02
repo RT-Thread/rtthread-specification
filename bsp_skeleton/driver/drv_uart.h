@@ -1,5 +1,5 @@
 /*
- * File      : board_uart.h
+ * File      : drv_uart.h
  * This file is part of RT-Thread RTOS
  * COPYRIGHT (C) 2017, RT-Thread Development Team
  *
@@ -23,9 +23,9 @@
  */
 
 
-#ifndef BOARD_UART_H__
-#define BOARD_UART_H__
+#ifndef __DRV_UART_H__
+#define __DRV_UART_H__
 
 int rt_hw_uart_init(void);
 
-#endif /* BOARD_UART_H__ */
+#endif /* __DRV_UART_H__ */
