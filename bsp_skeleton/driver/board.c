@@ -27,8 +27,26 @@
 #include "board.h"
 #include "drv_uart.h"
 
+/**
+ * This is the timer interrupt service routine.
+ *
+ */
+void SysTick_Handler(void)
+{
+    /* enter interrupt */
+    rt_interrupt_enter();
+
+    rt_tick_increase();
+
+    /* leave interrupt */
+    rt_interrupt_leave();
+}
+
 void rt_hw_board_init(void)
 {
+    /* Configure the SysTick */
+    SysTick_Config( SystemCoreClock / RT_TICK_PER_SECOND );
+    
     /* initialize hardware interrupt */
     rt_hw_uart_init();
 
