@@ -27,10 +27,18 @@
 
 #include <stdint.h>
 
+#ifdef __CC_ARM
+extern int Image$$RW_IRAM1$$ZI$$Limit;
+#define RT_HW_HEAP_BEGIN    (&Image$$RW_IRAM1$$ZI$$Limit)
+#elif __ICCARM__
+#pragma section="HEAP"
+#define RT_HW_HEAP_BEGIN    (__segment_end("HEAP"))
+#else
 extern unsigned char __bss_start;
 extern unsigned char __bss_end;
-
 #define RT_HW_HEAP_BEGIN    (void*)&__bss_end
+#endif
+
 #define RT_HW_HEAP_END      (void*)(0x80000000 + 4 * 1024 * 1024)
 
 void rt_hw_board_init(void);
