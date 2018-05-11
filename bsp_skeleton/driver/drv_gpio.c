@@ -40,7 +40,7 @@ static int hw_pin_read(struct rt_device *device, rt_base_t pin)
 }
 
 static rt_err_t hw_pin_attach_irq)(struct rt_device *device, rt_int32_t pin,
-                  rt_uint32_t mode, void (*hdr)(void *args), void *args)
+       rt_uint32_t mode, void (*hdr)(void *args), void *args)
 {
     return RT_EOK;
 }
@@ -55,12 +55,12 @@ static rt_err_t hw_pin_irq_enable(struct rt_device *device, rt_base_t pin, rt_ui
     return RT_EOK;
 }
 
-struct rt_pin_ops _hw_pin_ops = 
+struct rt_pin_ops _hw_pin_ops =
 {
     hw_pin_mode,
     hw_pin_write,
     hw_pin_read,
-    
+
     hw_pin_attach_irq,
     hw_pin_detach_irq,
     hw_pin_irq_enable

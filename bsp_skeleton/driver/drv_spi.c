@@ -32,8 +32,8 @@ struct skt_spi_bus
 };
 
 /* private rt-thread spi ops function */
-static rt_err_t configure(struct rt_spi_device* device, struct rt_spi_configuration* configuration);
-static rt_uint32_t xfer(struct rt_spi_device* device, struct rt_spi_message* message);
+static rt_err_t configure(struct rt_spi_device *device, struct rt_spi_configuration *configuration);
+static rt_uint32_t xfer(struct rt_spi_device *device, struct rt_spi_message *message);
 
 static struct rt_spi_ops _spi_ops =
 {
@@ -41,15 +41,15 @@ static struct rt_spi_ops _spi_ops =
     xfer
 };
 
-static rt_err_t configure(struct rt_spi_device* device,
-                          struct rt_spi_configuration* configuration)
+static rt_err_t configure(struct rt_spi_device *device,
+                          struct rt_spi_configuration *configuration)
 {
     struct skt_spi_bus *bus = (struct skt_spi_bus *)device->bus;
-    
+
     return RT_EOK;
 }
 
-static rt_uint32_t xfer(struct rt_spi_device* device, struct rt_spi_message* message)
+static rt_uint32_t xfer(struct rt_spi_device *device, struct rt_spi_message *message)
 {
     struct skt_spi_bus *bus = (struct skt_spi_bus *)device->bus;
     struct rt_spi_configuration *config = &device->config;

@@ -75,20 +75,20 @@ struct wlan_hw_device _wifi_device;
  */
 static err_t wlan_igmp_mac_filter(struct netif *netif, ip_addr_t *group, u8_t action)
 {
-    uint32_t mac = { MULTICAST_IP_TO_MAC((uint8_t*)group) };
+    uint32_t mac = { MULTICAST_IP_TO_MAC((uint8_t *)group) };
 
-    switch ( action )
+    switch (action)
     {
-        case IGMP_ADD_MAC_FILTER:
-            /* register multicast address */
-            break;
+    case IGMP_ADD_MAC_FILTER:
+        /* register multicast address */
+        break;
 
-        case IGMP_DEL_MAC_FILTER:
-            /* unregister multicast address */
-            break;
+    case IGMP_DEL_MAC_FILTER:
+        /* unregister multicast address */
+        break;
 
-        default:
-            return ERR_VAL;
+    default:
+        return ERR_VAL;
     }
 
     return ERR_OK;
@@ -118,7 +118,7 @@ static int wlan_hw_init(struct wlan_hw_device *device)
 }
 
 static int wlan_hw_scan(struct wlan_hw_device *device, struct rt_wlan_info *info,
-        int number)
+                        int number)
 {
     rt_err_t result = RT_EOK;
 
@@ -163,7 +163,7 @@ static int wlan_hw_join(struct wlan_hw_device *device, const char *password)
     return result;
 }
 
-static int wlan_hw_easy_join(struct wlan_hw_device *device, const char* password)
+static int wlan_hw_easy_join(struct wlan_hw_device *device, const char *password)
 {
     char *ssid_str;
     rt_err_t result = RT_EOK;
@@ -180,9 +180,9 @@ static int wlan_hw_easy_join(struct wlan_hw_device *device, const char* password
 static rt_err_t wlan_hw_control(rt_device_t dev, int cmd, void *args)
 {
     rt_err_t result = RT_EOK;
-    struct wlan_hw_device *device = (struct wlan_hw_device*) dev;
+    struct wlan_hw_device *device = (struct wlan_hw_device *) dev;
 
-    switch(cmd)
+    switch (cmd)
     {
     case NIOCTL_GADDR: /* get MAC address */
     {
@@ -210,83 +210,83 @@ static rt_err_t wlan_hw_control(rt_device_t dev, int cmd, void *args)
     }
 
     case WIFI_INIT:
+    {
+        rt_wlan_mode_t mode = *(rt_wlan_mode_t *)args;
+
+        if (device->status == WLAN_STATUS_UNINITED)
         {
-            rt_wlan_mode_t mode = *(rt_wlan_mode_t*)args;
-
-            if (device->status == WLAN_STATUS_UNINITED)
-            {
-                if (mode == WIFI_STATION)
-                {
-                    device->interface = WLAN_IF_STATION;
-                }
-                else if (mode == WIFI_AP)
-                {
-                    device->interface = WLAN_IF_AP;
-                }
-
-                result = wlan_hw_init(device);
-                if (result == RT_EOK)
-                {
-                    #if LWIP_IGMP
-                    netif_set_igmp_mac_filter(device->parent.parent.netif, wlan_igmp_mac_filter);
-                    #endif
-
-                    device->status = WLAN_STATUS_INITED;
-                }
-            }
-        }
-        break;
-
-    case WIFI_SCAN:
-        {
-            struct rt_wlan_info_request *request;
-            request = (struct rt_wlan_info_request*) args;
-
-            if (device->status == WLAN_STATUS_UNINITED)
-            {
-                result = wlan_hw_init(device);
-                if (result != RT_EOK) break;
-            }
-
-            if (device->status != WLAN_STATUS_UNINITED)
-            {
-                int result_num;
-
-                /* scan wifi and get AP list */
-                result_num = wlan_hw_scan(device, request->infos, request->req_number);
-                if (result_num >= 0)
-                {
-                    request->rsp_number = result_num;
-                    result = RT_EOK;
-                }
-                else result = -RT_ERROR;
-            }
-        }
-        break;
-
-    case WIFI_JOIN:
-        {
-            if (device->status == WLAN_STATUS_UNINITED)
-            {
-                result = wlan_hw_init(device);
-                if (result != RT_EOK) break;
-            }
-
-            if (device->status != WLAN_STATUS_UNINITED)
+            if (mode == WIFI_STATION)
             {
                 device->interface = WLAN_IF_STATION;
-                result = wlan_hw_join(device, (char *)args);
-                if (result == RT_EOK)
-                {
-                    /* TODO: set event handler */
-                }
+            }
+            else if (mode == WIFI_AP)
+            {
+                device->interface = WLAN_IF_AP;
+            }
+
+            result = wlan_hw_init(device);
+            if (result == RT_EOK)
+            {
+#if LWIP_IGMP
+                netif_set_igmp_mac_filter(device->parent.parent.netif, wlan_igmp_mac_filter);
+#endif
+
+                device->status = WLAN_STATUS_INITED;
             }
         }
-        break;
+    }
+    break;
+
+    case WIFI_SCAN:
+    {
+        struct rt_wlan_info_request *request;
+        request = (struct rt_wlan_info_request *) args;
+
+        if (device->status == WLAN_STATUS_UNINITED)
+        {
+            result = wlan_hw_init(device);
+            if (result != RT_EOK) break;
+        }
+
+        if (device->status != WLAN_STATUS_UNINITED)
+        {
+            int result_num;
+
+            /* scan wifi and get AP list */
+            result_num = wlan_hw_scan(device, request->infos, request->req_number);
+            if (result_num >= 0)
+            {
+                request->rsp_number = result_num;
+                result = RT_EOK;
+            }
+            else result = -RT_ERROR;
+        }
+    }
+    break;
+
+    case WIFI_JOIN:
+    {
+        if (device->status == WLAN_STATUS_UNINITED)
+        {
+            result = wlan_hw_init(device);
+            if (result != RT_EOK) break;
+        }
+
+        if (device->status != WLAN_STATUS_UNINITED)
+        {
+            device->interface = WLAN_IF_STATION;
+            result = wlan_hw_join(device, (char *)args);
+            if (result == RT_EOK)
+            {
+                /* TODO: set event handler */
+            }
+        }
+    }
+    break;
 
     case WIFI_EASYJOIN:
     {
-        char *password = (char*)args;
+        char *password = (char *)args;
 
         if (device->status == WLAN_STATUS_UNINITED)
         {
@@ -305,7 +305,7 @@ static rt_err_t wlan_hw_control(rt_device_t dev, int cmd, void *args)
             }
         }
     }
-        break;
+    break;
 
     case WIFI_SOFTAP:
     {
@@ -319,7 +319,7 @@ static rt_err_t wlan_hw_control(rt_device_t dev, int cmd, void *args)
         {
             uint8_t channel;
             char    *ssid_str;
-            char    *password = (char*)args;
+            char    *password = (char *)args;
 
             /* set to soft-AP */
             device->interface = WLAN_IF_AP;
@@ -338,72 +338,72 @@ static rt_err_t wlan_hw_control(rt_device_t dev, int cmd, void *args)
             }
         }
     }
-        break;
+    break;
 
     case WIFI_DISCONNECT:
+    {
+        if (device->interface == WLAN_IF_AP)
         {
-            if(device->interface == WLAN_IF_AP)
-            {
-                /* stop soft-AP */
-            }
-            else if(device->interface == WLAN_IF_STATION)
-            {
-                /* leave wlan network */
-            }
-            else
-            {
-                /* bad interface */
-                RT_ASSERT(0);
-            }
-
-            /* check result */
-            if (1)
-            {
-                /* initialized but not connected. */
-                device->status = WLAN_STATUS_INITED;
-                result = RT_EOK;
-            }
+            /* stop soft-AP */
         }
-        break;
+        else if (device->interface == WLAN_IF_STATION)
+        {
+            /* leave wlan network */
+        }
+        else
+        {
+            /* bad interface */
+            RT_ASSERT(0);
+        }
+
+        /* check result */
+        if (1)
+        {
+            /* initialized but not connected. */
+            device->status = WLAN_STATUS_INITED;
+            result = RT_EOK;
+        }
+    }
+    break;
 
     case WIFI_GET_RSSI:
+    {
+        int32_t rssi = 0;
+
+        if (device->status != WLAN_STATUS_CONNECTED || device->status != WLAN_STATUS_AP_MODE)
         {
-            int32_t rssi = 0;
-
-            if (device->status != WLAN_STATUS_CONNECTED || device->status != WLAN_STATUS_AP_MODE)
-            {
-                result = -RT_EIO;
-                break;
-            }
-
-            /* get RSSI */
-
-            /* check result */
-            if (1)
-            {
-                result = RT_EOK;
-                *((int *)args) = rssi;
-            }
+            result = -RT_EIO;
+            break;
         }
-        break;
+
+        /* get RSSI */
+
+        /* check result */
+        if (1)
+        {
+            result = RT_EOK;
+            *((int *)args) = rssi;
+        }
+    }
+    break;
 
     case WIFI_ENTER_POWERSAVE:
+    {
+        int pm_mode = *(int *)args;
+
+        if (pm_mode == WIFI_PWR_SLEEP)
         {
-            int pm_mode = *(int*)args;
-
-            if (pm_mode == WIFI_PWR_SLEEP)
-            {
-                /* sleep */
-            }
-            else
-            {
-                /*not sleep */
-            }
-
-            /* check result */
-            if (0) result = -RT_EIO;
+            /* sleep */
         }
-        break;
+        else
+        {
+            /*not sleep */
+        }
+
+        /* check result */
+        if (0) result = -RT_EIO;
+    }
+    break;
 
     default :
         break;
@@ -413,11 +413,11 @@ static rt_err_t wlan_hw_control(rt_device_t dev, int cmd, void *args)
 }
 
 /* transmit packet. */
-static rt_err_t wlan_hw_tx(rt_device_t dev, struct pbuf* p)
+static rt_err_t wlan_hw_tx(rt_device_t dev, struct pbuf *p)
 {
     struct wlan_hw_device *device;
 
-    device = (struct wlan_hw_device*) dev;
+    device = (struct wlan_hw_device *) dev;
 
     /* not ready */
     if (0)

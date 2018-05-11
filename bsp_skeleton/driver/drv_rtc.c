@@ -31,7 +31,7 @@ static rt_err_t hw_rtc_open(rt_device_t dev, rt_uint16_t oflag)
     return RT_EOK;
 }
 
-static rt_size_t hw_rtc_read(rt_device_t dev, rt_off_t pos, void* buffer, rt_size_t size)
+static rt_size_t hw_rtc_read(rt_device_t dev, rt_off_t pos, void *buffer, rt_size_t size)
 {
     return 0;
 }
@@ -43,13 +43,13 @@ static rt_err_t hw_rtc_control(rt_device_t dev, int cmd, void *args)
 
 int rt_hw_rtc_init(void)
 {
-    rtc.type	= RT_Device_Class_RTC;
+    rtc.type    = RT_Device_Class_RTC;
     /* register rtc device */
-    rtc.init 	= RT_NULL;
-    rtc.open 	= hw_rtc_open;
-    rtc.close	= RT_NULL;
-    rtc.read 	= hw_rtc_read;
-    rtc.write	= RT_NULL;
+    rtc.init    = RT_NULL;
+    rtc.open    = hw_rtc_open;
+    rtc.close   = RT_NULL;
+    rtc.read    = hw_rtc_read;
+    rtc.write   = RT_NULL;
     rtc.control = hw_rtc_control;
 
     /* no private */

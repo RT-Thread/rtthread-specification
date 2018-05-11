@@ -37,7 +37,7 @@ static uint32_t hw_cputime_gettime(void)
     return 0;
 }
 
-const static struct rt_clock_cputime_ops _hw_cputime_ops = 
+const static struct rt_clock_cputime_ops _hw_cputime_ops =
 {
     hw_cputime_getres,
     hw_cputime_gettime

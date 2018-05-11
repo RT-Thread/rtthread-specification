@@ -35,13 +35,13 @@ struct device_uart
     rt_uint32_t irqno;
 };
 
-static rt_err_t  uart_configure    (struct rt_serial_device *serial, struct serial_configure *cfg);
-static rt_err_t  uart_control      (struct rt_serial_device *serial, int cmd, void *arg);
-static int       uart_putc         (struct rt_serial_device *serial, char c);
-static int       uart_getc         (struct rt_serial_device *serial);
-static rt_size_t uart_dma_transmit (struct rt_serial_device *serial, rt_uint8_t *buf, rt_size_t size, int direction);
+static rt_err_t  uart_configure(struct rt_serial_device *serial, struct serial_configure *cfg);
+static rt_err_t  uart_control(struct rt_serial_device *serial, int cmd, void *arg);
+static int       uart_putc(struct rt_serial_device *serial, char c);
+static int       uart_getc(struct rt_serial_device *serial);
+static rt_size_t uart_dma_transmit(struct rt_serial_device *serial, rt_uint8_t *buf, rt_size_t size, int direction);
 
-static void     uart_irq_handler   (int irqno, void *param);
+static void     uart_irq_handler(int irqno, void *param);
 
 const struct rt_uart_ops _uart_ops =
 {
@@ -87,33 +87,33 @@ int rt_hw_uart_init(void)
 /*
  * UART interface
  */
-static rt_err_t uart_configure (struct rt_serial_device *serial, struct serial_configure *cfg)
+static rt_err_t uart_configure(struct rt_serial_device *serial, struct serial_configure *cfg)
 {
-     rt_uint32_t baud_div;
-     struct device_uart * uart;
+    rt_uint32_t baud_div;
+    struct device_uart *uart;
 
-     RT_ASSERT(serial != RT_NULL);
-     serial->config = *cfg;
+    RT_ASSERT(serial != RT_NULL);
+    serial->config = *cfg;
 
-     uart = serial->parent.user_data;
-     RT_ASSERT(uart != RT_NULL);
+    uart = serial->parent.user_data;
+    RT_ASSERT(uart != RT_NULL);
 
-     /* Init UART Hardware */
+    /* Init UART Hardware */
 
-     /* Enable UART clock */
+    /* Enable UART clock */
 
-     /* Set both receiver and transmitter in UART mode (not SIR) */
+    /* Set both receiver and transmitter in UART mode (not SIR) */
 
-     /* Set databits, stopbits and parity. (8-bit data, 1 stopbit, no parity) */
+    /* Set databits, stopbits and parity. (8-bit data, 1 stopbit, no parity) */
 
-     /* set baudrate */
+    /* set baudrate */
 
-     return (RT_EOK);
+    return (RT_EOK);
 }
 
-static rt_err_t uart_control (struct rt_serial_device *serial, int cmd, void *arg)
+static rt_err_t uart_control(struct rt_serial_device *serial, int cmd, void *arg)
 {
-    struct device_uart * uart;
+    struct device_uart *uart;
 
     uart = serial->parent.user_data;
 
@@ -139,9 +139,9 @@ static rt_err_t uart_control (struct rt_serial_device *serial, int cmd, void *ar
     return (RT_EOK);
 }
 
-static int uart_putc (struct rt_serial_device *serial, char c)
+static int uart_putc(struct rt_serial_device *serial, char c)
 {
-    struct device_uart* uart;
+    struct device_uart *uart;
 
     uart = serial->parent.user_data;
 
@@ -152,16 +152,16 @@ static int uart_putc (struct rt_serial_device *serial, char c)
     return (1);
 }
 
-static int uart_getc (struct rt_serial_device *serial)
+static int uart_getc(struct rt_serial_device *serial)
 {
-    struct device_uart* uart = serial->parent.user_data;
+    struct device_uart *uart = serial->parent.user_data;
 
     /* Receive Data Available */
 
     return (-1);
 }
 
-static rt_size_t uart_dma_transmit (struct rt_serial_device *serial, rt_uint8_t *buf, rt_size_t size, int direction)
+static rt_size_t uart_dma_transmit(struct rt_serial_device *serial, rt_uint8_t *buf, rt_size_t size, int direction)
 {
     return (0);
 }
@@ -170,17 +170,17 @@ static rt_size_t uart_dma_transmit (struct rt_serial_device *serial, rt_uint8_t 
 static void uart_irq_handler(int irqno, void *param)
 {
     rt_ubase_t isr;
-    struct rt_serial_device *serial = (struct rt_serial_device*)param;
-    struct device_uart* uart = serial->parent.user_data;
+    struct rt_serial_device *serial = (struct rt_serial_device *)param;
+    struct device_uart *uart = serial->parent.user_data;
 
     /* read interrupt status and clear it */
     if (0) /* rx ind */
     {
-        rt_hw_serial_isr(serial,RT_SERIAL_EVENT_RX_IND);
+        rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_IND);
     }
 
-    if(0) /* tx done */
+    if (0) /* tx done */
     {
-        rt_hw_serial_isr(serial,RT_SERIAL_EVENT_TX_DONE);
+        rt_hw_serial_isr(serial, RT_SERIAL_EVENT_TX_DONE);
     }
 }
