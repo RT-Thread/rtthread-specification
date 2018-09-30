@@ -1,8 +1,8 @@
 import os
 
 # toolchains options
-ARCH        ='arm'
-CPU         ='cortex-m4'
+ARCH        ='risc-v'
+CPU         ='K210'
 CROSS_TOOL  ='gcc'
 
 if os.getenv('RTT_ROOT'):
@@ -15,7 +15,7 @@ if os.getenv('RTT_CC'):
 
 if  CROSS_TOOL == 'gcc':
     PLATFORM    = 'gcc'
-    EXEC_PATH   = r'c:/embStudio/tools/mips-2015.11/bin'
+    EXEC_PATH   = r'/opt/unknown-gcc/bin'
 else:
     print 'Please make sure your toolchains is GNU GCC!'
     exit(0)

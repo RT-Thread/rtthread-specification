@@ -10,10 +10,7 @@ config RT_USING_SPI1
     bool "Enable SPI1 (GPIO0/1)"
     default y
 
-if RT_USING_LWIP
-
 config RT_EMAC_RMII
     bool "Use RMII mode for EMAC"
+    select RT_USING_LWIP
     default y
-
-endif

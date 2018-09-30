@@ -7,12 +7,8 @@
  * Date           Author       Notes
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(int argc, char** argv)
-{
-    printf("Hello RT-Thread!\n");
-
-    return 0;
-}
+	.global	_start
+    .section ".start", "ax"
+    .set noreorder
+_start:
+    nop

@@ -7,12 +7,7 @@
  * Date           Author       Notes
  */
 
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef PORT_H__
+#define PORT_H__
 
-int main(int argc, char** argv)
-{
-    printf("Hello RT-Thread!\n");
-
-    return 0;
-}
+#endif
