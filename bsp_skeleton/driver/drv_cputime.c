@@ -29,10 +29,10 @@ const static struct rt_clock_cputime_ops _hw_cputime_ops =
     hw_cputime_gettime
 };
 
-int hw_cputime_init(void)
+int rt_hw_cputime_init(void)
 {
     clock_cpu_setops(&_hw_cputime_ops);
 
     return 0;
 }
-INIT_BOARD_EXPORT(hw_cputime_init);
+INIT_BOARD_EXPORT(rt_hw_cputime_init);

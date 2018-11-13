@@ -15,33 +15,47 @@
 struct skt_spi_bus
 {
     struct rt_spi_bus parent;
+    rt_uint32_t spi_periph;
 };
 
-/* private rt-thread spi ops function */
-static rt_err_t configure(struct rt_spi_device *device, struct rt_spi_configuration *configuration);
-static rt_uint32_t xfer(struct rt_spi_device *device, struct rt_spi_message *message);
-
-static struct rt_spi_ops _spi_ops =
-{
-    configure,
-    xfer
-};
-
-static rt_err_t configure(struct rt_spi_device *device,
-                          struct rt_spi_configuration *configuration)
+static rt_err_t hw_spi_configure(struct rt_spi_device *device,
+                                  struct rt_spi_configuration *configuration)
 {
     struct skt_spi_bus *bus = (struct skt_spi_bus *)device->bus;
+
+    /* TBD:according to (configuration) set (bus->spi_periph) data_width, prescale, mode. */
+
+    /* TBD:enable SPI (bus->spi_periph) */
 
     return RT_EOK;
 }
 
-static rt_uint32_t xfer(struct rt_spi_device *device, struct rt_spi_message *message)
+static rt_uint32_t hw_spi_xfer(struct rt_spi_device *device, struct rt_spi_message *message)
 {
     struct skt_spi_bus *bus = (struct skt_spi_bus *)device->bus;
-    struct rt_spi_configuration *config = &device->config;
+    struct rt_spi_configuration *cfg = &device->config;
+    rt_base_t cs_pin = (rt_base_t)device->parent.user_data;
+
+    /* TBD: transfer message via SPI Hardware(bus->spi_periph) */
 }
 
-rt_err_t skt_spi_register(struct skt_spi_bus *spi_bus, const char *bus_name)
+static struct rt_spi_ops _spi_ops =
 {
-    return rt_spi_bus_register(&spi_bus->parent, bus_name, &_spi_ops);
+    hw_spi_configure,
+    hw_spi_xfer
+};
+
+int rt_hw_spi_init(void)
+{
+    static struct skt_spi_bus spi_bus0;
+
+    /* TBD: Init SPI Hardware */
+
+    rt_spi_bus_register(&spi_bus0.parent, "spi0", &_spi_ops);
+
+    /* TBD: register other SPI device */
+
+    return 0;
 }
+INIT_DEVICE_EXPORT(rt_hw_spi_init);
+

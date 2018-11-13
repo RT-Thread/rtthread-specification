@@ -26,7 +26,6 @@ struct skt_emac
     /* interface address info. */
     rt_uint8_t  dev_addr[MAX_ADDR_LEN];         /* MAC address  */
 };
-static struct skt_emac _emac;
 
 static rt_err_t skt_emac_init(rt_device_t dev)
 {
@@ -59,7 +58,7 @@ static rt_err_t skt_emac_control(rt_device_t dev, int cmd, void *args)
 {
     struct skt_emac *emac;
 
-    emac = SKT_EMAC_DEVICE(dev);
+    emac = (struct skt_emac*)dev;
     RT_ASSERT(emac != RT_NULL);
 
     switch (cmd)
@@ -84,11 +83,11 @@ rt_err_t skt_emac_tx(rt_device_t dev, struct pbuf *p)
     rt_err_t result = RT_EOK;
     struct skt_emac *emac;
 
-    emac = SKT_EMAC_DEVICE(dev);
+    emac = (struct skt_emac*)dev;
     RT_ASSERT(emac != RT_NULL);
 
     /* copy pbuf to a whole ETH frame */
-    // pbuf_copy_partial(p, eth_frame, p->tot_len, 0);
+    /* pbuf_copy_partial(p, eth_frame, p->tot_len, 0); */
 
     /* send it out */
 
@@ -101,7 +100,7 @@ struct pbuf *skt_emac_rx(rt_device_t dev)
     struct pbuf *p = RT_NULL;
     struct skt_emac *emac;
 
-    emac = SKT_EMAC_DEVICE(dev);
+    emac = emac = (struct skt_emac*)dev;
     RT_ASSERT(emac != RT_NULL);
 
     /* take the emac buffer to the pbuf */
@@ -114,15 +113,16 @@ struct pbuf *skt_emac_rx(rt_device_t dev)
         p = pbuf_alloc(PBUF_LINK, length, PBUF_RAM);
         if (p)
         {
-            // pbuf_take(p, buffer, length);
+            /* pbuf_take(p, buffer, length); */
         }
     }
 
     return p;
 }
 
-int skt_emac_hw_init(void)
+int rt_hw_emac_init(void)
 {
+    static struct skt_emac _emac;
     /* test MAC address */
     _emac.dev_addr[0] = 0x00;
     _emac.dev_addr[1] = 0x11;
@@ -147,6 +147,6 @@ int skt_emac_hw_init(void)
 
     return 0;
 }
-INIT_DEVICE_EXPORT(skt_emac_hw_init);
+INIT_DEVICE_EXPORT(rt_hw_emac_init);
 #endif
 

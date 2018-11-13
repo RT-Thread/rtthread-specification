@@ -54,10 +54,10 @@ struct rt_pin_ops _hw_pin_ops =
     hw_pin_irq_enable
 };
 
-int hw_pin_init(void)
+int rt_hw_pin_init(void)
 {
-    rt_device_pin_register("gpio", &_hw_pin_ops , RT_NULL);
+    rt_device_pin_register("pin", &_hw_pin_ops , RT_NULL);
 
     return 0;
 }
-INIT_BOARD_EXPORT(hw_pin_init);
+INIT_BOARD_EXPORT(rt_hw_pin_init);
