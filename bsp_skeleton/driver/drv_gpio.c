@@ -28,7 +28,7 @@ static int hw_pin_read(struct rt_device *device, rt_base_t pin)
 }
 
 static rt_err_t hw_pin_attach_irq(struct rt_device *device, rt_int32_t pin,
-       rt_uint32_t mode, void (*hdr)(void *args), void *args)
+                                  rt_uint32_t mode, void (*hdr)(void *args), void *args)
 {
     return RT_EOK;
 }

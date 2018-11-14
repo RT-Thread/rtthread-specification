@@ -10,7 +10,7 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 
-#include "skeleton_spi.h"
+#include "drv_spi.h"
 
 struct skt_spi_bus
 {

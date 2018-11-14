@@ -11,12 +11,14 @@
 #include <rtthread.h>
 
 #include "board.h"
-#include "drv_uart.h"
+
 
 void rt_hw_board_init(void)
 {
-    /* initialize hardware interrupt */
-    rt_hw_uart_init();
+
+#ifdef RT_USING_COMPONENTS_INIT
+    rt_components_board_init();
+#endif
 
 #ifdef RT_USING_CONSOLE
     /* set console device */
@@ -28,7 +30,5 @@ void rt_hw_board_init(void)
     rt_system_heap_init(RT_HW_HEAP_BEGIN, RT_HW_HEAP_END);
 #endif
 
-#ifdef RT_USING_COMPONENTS_INIT
-    rt_components_board_init();
-#endif
+
 }

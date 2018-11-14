@@ -10,6 +10,6 @@
 #ifndef SKT_EMAC_H__
 #define SKT_EMAC_H__
 
-int skt_emac_hw_init(void);
+int rt_hw_emac_init(void);
 
 #endif
