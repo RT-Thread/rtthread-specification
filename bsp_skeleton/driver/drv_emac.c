@@ -58,7 +58,7 @@ static rt_err_t skt_emac_control(rt_device_t dev, int cmd, void *args)
 {
     struct skt_emac *emac;
 
-    emac = (struct skt_emac*)dev;
+    emac = SKT_EMAC_DEVICE(dev);
     RT_ASSERT(emac != RT_NULL);
 
     switch (cmd)
@@ -83,7 +83,7 @@ rt_err_t skt_emac_tx(rt_device_t dev, struct pbuf *p)
     rt_err_t result = RT_EOK;
     struct skt_emac *emac;
 
-    emac = (struct skt_emac*)dev;
+    emac = SKT_EMAC_DEVICE(dev);
     RT_ASSERT(emac != RT_NULL);
 
     /* copy pbuf to a whole ETH frame */
@@ -100,7 +100,7 @@ struct pbuf *skt_emac_rx(rt_device_t dev)
     struct pbuf *p = RT_NULL;
     struct skt_emac *emac;
 
-    emac = emac = (struct skt_emac*)dev;
+    emac = SKT_EMAC_DEVICE(dev);
     RT_ASSERT(emac != RT_NULL);
 
     /* take the emac buffer to the pbuf */

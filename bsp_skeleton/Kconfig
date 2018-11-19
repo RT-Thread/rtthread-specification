@@ -24,3 +24,4 @@ config BOARD_SKELETON
     default y
 
 source "driver/Kconfig"
+

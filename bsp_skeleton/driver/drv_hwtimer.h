@@ -7,8 +7,8 @@
  * Date           Author       Notes
  */
  
-#ifndef __DRV_HWTIMER_H__
-#define __DRV_HWTIMER_H__
+#ifndef DRV_HWTIMER_H__
+#define DRV_HWTIMER_H__
 
 int rt_hw_hwtimer_init(void);
 

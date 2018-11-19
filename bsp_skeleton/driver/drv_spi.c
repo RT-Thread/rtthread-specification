@@ -12,6 +12,8 @@
 
 #include "drv_spi.h"
 
+#define SKT_SPI_DEVICE(spi_bus)    (struct skt_spi_bus *)(spi_bus)
+
 struct skt_spi_bus
 {
     struct rt_spi_bus parent;
@@ -21,7 +23,7 @@ struct skt_spi_bus
 static rt_err_t hw_spi_configure(struct rt_spi_device *device,
                                   struct rt_spi_configuration *configuration)
 {
-    struct skt_spi_bus *bus = (struct skt_spi_bus *)device->bus;
+    struct skt_spi_bus *bus = SKT_SPI_DEVICE(device->bus);
 
     /* TBD:according to (configuration) set (bus->spi_periph) data_width, prescale, mode. */
 
@@ -32,7 +34,7 @@ static rt_err_t hw_spi_configure(struct rt_spi_device *device,
 
 static rt_uint32_t hw_spi_xfer(struct rt_spi_device *device, struct rt_spi_message *message)
 {
-    struct skt_spi_bus *bus = (struct skt_spi_bus *)device->bus;
+    struct skt_spi_bus *bus = SKT_SPI_DEVICE(device->bus);
     struct rt_spi_configuration *cfg = &device->config;
     rt_base_t cs_pin = (rt_base_t)device->parent.user_data;
 

@@ -11,6 +11,8 @@
 #include <rtthread.h>
 #include "drv_pwm.h"
 
+#define SKT_PWM_DEVICE(pwm)    (struct skt_pwm_dev *)(pwm)
+
 struct skt_pwm_dev
 {
     struct rt_device_pwm parent;
@@ -19,7 +21,7 @@ struct skt_pwm_dev
 
 static rt_err_t skt_pwm_control(struct rt_device_pwm *device, int cmd, void *arg)
 {
-    struct skt_pwm_dev *pwm = (struct skt_pwm_dev *)device->parent.user_data;
+    struct skt_pwm_dev *pwm = SKT_PWM_DEVICE(device->parent.user_data);
     struct rt_pwm_configuration *cfg = (struct rt_pwm_configuration *)arg;
     RT_ASSERT(pwm != RT_NULL);
 

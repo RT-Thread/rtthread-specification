@@ -11,6 +11,8 @@
 #include <rtthread.h>
 #include "drv_i2c.h"
 
+#define SKT_I2C_DEVICE(i2c_bus)    (struct skt_i2c_bus *)(i2c_bus)
+
 struct skt_i2c_bus
 {
     struct rt_i2c_bus_device parent;
@@ -19,7 +21,7 @@ struct skt_i2c_bus
 
 static rt_size_t hw_i2c_xfer(struct rt_i2c_bus_device *bus, struct rt_i2c_msg msgs[], rt_uint32_t num)
 {
-    struct skt_i2c_bus *bus = (struct skt_i2c_bus *)bus;
+    struct skt_i2c_bus *bus = SKT_I2C_DEVICE(bus);
     RT_ASSERT(i2c_bus != RT_NULL);
 
     /* TBD: transfer msgs[] via I2C Hardware(bus->i2c_periph) */

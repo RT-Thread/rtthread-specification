@@ -11,6 +11,8 @@
 #include <rtdevice.h>
 #include "drv_hwtimer.h"
 
+#define SKT_HWTIMER_DEVICE(hwtimer)    (struct skt_hwtimer *)(hwtimer)
+
 struct skt_hwtimer
 {
     rt_hwtimer_t parent;
@@ -22,7 +24,7 @@ static rt_err_t skt_hwtimer_control(rt_hwtimer_t *timer, rt_uint32_t cmd, void *
 {
     rt_err_t res = RT_EOK;
     struct skt_hwtimer *hwtimer;
-    hwtimer = (struct skt_hwtimer *)timer->parent.user_data;
+    hwtimer = SKT_HWTIMER_DEVICE(timer->parent.user_data);
 
     RT_ASSERT(hwtimer != RT_NULL);
 
@@ -58,7 +60,7 @@ static rt_err_t skt_hwtimer_control(rt_hwtimer_t *timer, rt_uint32_t cmd, void *
 static rt_uint32_t skt_hwtimer_count_get(rt_hwtimer_t *timer)
 {
     struct skt_hwtimer *hwtimer;
-    hwtimer = (struct skt_hwtimer *)timer->parent.user_data;
+    hwtimer = SKT_HWTIMER_DEVICE(timer->parent.user_data);
 
     RT_ASSERT(hwtimer != RT_NULL);
 
@@ -69,7 +71,7 @@ static rt_uint32_t skt_hwtimer_count_get(rt_hwtimer_t *timer)
 static void skt_hwtimer_init(rt_hwtimer_t *timer, rt_uint32_t state)
 {
     struct skt_hwtimer *hwtimer;
-    hwtimer = (struct skt_hwtimer *)timer->parent.user_data;
+    hwtimer = SKT_HWTIMER_DEVICE(timer->parent.user_data);
 
     RT_ASSERT(hwtimer != RT_NULL);
 
@@ -80,7 +82,7 @@ static rt_err_t skt_hwtimer_start(rt_hwtimer_t *timer, rt_uint32_t cnt, rt_hwtim
 {
     rt_err_t res = RT_EOK;
     struct skt_hwtimer *hwtimer;
-    hwtimer = (struct skt_hwtimer *)timer->parent.user_data;
+    hwtimer = SKT_HWTIMER_DEVICE(timer->parent.user_data);
 
     RT_ASSERT(hwtimer != RT_NULL);
 
@@ -98,7 +100,7 @@ static rt_err_t skt_hwtimer_start(rt_hwtimer_t *timer, rt_uint32_t cnt, rt_hwtim
 static void skt_hwtimer_stop(rt_hwtimer_t *timer)
 {
     struct skt_hwtimer *hwtimer;
-    hwtimer = (struct skt_hwtimer *)timer->parent.user_data;
+    hwtimer = SKT_HWTIMER_DEVICE(timer->parent.user_data);
 
     RT_ASSERT(hwtimer != RT_NULL);
 

@@ -14,7 +14,9 @@
 #include "board.h"
 #include "drv_uart.h"
 
-struct skt_uart_device
+#define SKT_UART_DEVICE(uart)    (struct skt_uart_dev *)(uart)
+
+struct skt_uart_dev
 {
     struct rt_serial_device parent;
     rt_uint32_t uart_periph;
@@ -26,11 +28,11 @@ struct skt_uart_device
  */
 static rt_err_t hw_uart_configure(struct rt_serial_device *serial, struct serial_configure *cfg)
 {
-    struct skt_uart_device *uart;
+    struct skt_uart_dev *uart;
 
     RT_ASSERT(serial != RT_NULL);
 
-    uart = (struct skt_uart_device *)serial->parent.user_data;
+    uart = SKT_UART_DEVICE(serial->parent.user_data);
     RT_ASSERT(uart != RT_NULL);
 
     /* Init UART Hardware(uart->uart_periph) */
@@ -46,9 +48,9 @@ static rt_err_t hw_uart_configure(struct rt_serial_device *serial, struct serial
 
 static rt_err_t hw_uart_control(struct rt_serial_device *serial, int cmd, void *arg)
 {
-    struct skt_uart_device *uart;
+    struct skt_uart_dev *uart;
 
-    uart = (struct skt_uart_device *)serial->parent.user_data;
+    uart = SKT_UART_DEVICE(serial->parent.user_data);
     RT_ASSERT(uart != RT_NULL);
 
     rt_ubase_t ctrl_arg = (rt_ubase_t)arg;
@@ -82,9 +84,9 @@ static rt_err_t hw_uart_control(struct rt_serial_device *serial, int cmd, void *
 
 static int hw_uart_putc(struct rt_serial_device *serial, char c)
 {
-    struct skt_uart_device *uart;
+    struct skt_uart_dev *uart;
 
-    uart = (struct skt_uart_device *)serial->parent.user_data;
+    uart = SKT_UART_DEVICE(serial->parent.user_data);
 
     /* FIFO status, contain valid data */
 
@@ -96,9 +98,9 @@ static int hw_uart_putc(struct rt_serial_device *serial, char c)
 static int hw_uart_getc(struct rt_serial_device *serial)
 {
     int ch;
-    struct skt_uart_device *uart;
+    struct skt_uart_dev *uart;
 
-    uart = (struct skt_uart_device *)serial->parent.user_data;
+    uart = SKT_UART_DEVICE(serial->parent.user_data);
 
     ch = -1;
 
@@ -115,10 +117,10 @@ static rt_size_t hw_uart_dma_transmit(struct rt_serial_device *serial, rt_uint8_
 /* UART ISR */
 static void uart_irq_handler(struct rt_serial_device *serial)
 {
-    struct skt_uart_device *uart;
+    struct skt_uart_dev *uart;
     RT_ASSERT(serial != RT_NULL);
 
-    uart = (struct skt_uart_device)serial->parent.user_data;
+    uart = SKT_UART_DEVICE(serial->parent.user_data);
 
     /* read interrupt status and clear it */
     if (0) /* rx ind */
@@ -147,7 +149,7 @@ const struct rt_uart_ops _uart_ops =
  */
 int rt_hw_uart_init(void)
 {
-    static struct skt_uart_device uart0_dev;
+    static struct skt_uart_dev uart0_dev;
 
     uart0_dev.parent.ops = &_uart_ops;
     uart0_dev.parent.config = RT_SERIAL_CONFIG_DEFAULT;

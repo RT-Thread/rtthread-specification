@@ -7,8 +7,8 @@
  * Date           Author       Notes
  */
 
-#ifndef SKT_EMAC_H__
-#define SKT_EMAC_H__
+#ifndef DRV_EMAC_H__
+#define DRV_EMAC_H__
 
 int rt_hw_emac_init(void);
 
