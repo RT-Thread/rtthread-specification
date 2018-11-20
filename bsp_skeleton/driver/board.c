@@ -32,21 +32,6 @@ void rt_hw_console_output(const char* str)
 }
 
 
-/**
- * This is the timer interrupt service routine.
- *
- */
-void SysTick_Handler(void)
-{
-    /* enter interrupt */
-    rt_interrupt_enter();
-
-    rt_tick_increase();
-
-    /* leave interrupt */
-    rt_interrupt_leave();
-}
-
 void rt_hw_board_init(void)
 {
 

@@ -27,7 +27,7 @@ static rt_size_t hw_i2c_xfer(struct rt_i2c_bus_device *bus, struct rt_i2c_msg ms
     /* TBD: transfer msgs[] via I2C Hardware(bus->i2c_periph) */
 }
 
-static const struct rt_i2c_bus_device_ops _i2c_ops =
+const static struct rt_i2c_bus_device_ops _i2c_ops =
 {
     hw_i2c_xfer,
     RT_NULL,

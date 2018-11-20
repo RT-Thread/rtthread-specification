@@ -43,7 +43,7 @@ static rt_err_t hw_pin_irq_enable(struct rt_device *device, rt_base_t pin, rt_ui
     return RT_EOK;
 }
 
-struct rt_pin_ops _hw_pin_ops =
+const static struct rt_pin_ops _hw_pin_ops =
 {
     hw_pin_mode,
     hw_pin_write,

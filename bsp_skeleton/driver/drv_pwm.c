@@ -51,7 +51,7 @@ static rt_err_t skt_pwm_control(struct rt_device_pwm *device, int cmd, void *arg
     return RT_EOK;
 }
 
-static const struct rt_pwm_ops _pwm_ops =
+const static struct rt_pwm_ops _pwm_ops =
 {
     skt_pwm_control
 };

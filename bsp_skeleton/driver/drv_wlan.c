@@ -616,7 +616,7 @@ static int wlan_send(struct rt_wlan_device *wlan, void *buff, int len)
     return RT_EOK;
 }
 
-static const struct rt_wlan_dev_ops ops =
+const static struct rt_wlan_dev_ops ops =
 {
    .wlan_init          = wlan_init          ,
    .wlan_mode          = wlan_mode          ,

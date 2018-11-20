@@ -41,7 +41,7 @@ static rt_uint32_t hw_spi_xfer(struct rt_spi_device *device, struct rt_spi_messa
     /* TBD: transfer message via SPI Hardware(bus->spi_periph) */
 }
 
-static struct rt_spi_ops _spi_ops =
+const static struct rt_spi_ops _spi_ops =
 {
     hw_spi_configure,
     hw_spi_xfer

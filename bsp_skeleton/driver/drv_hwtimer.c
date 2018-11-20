@@ -107,16 +107,16 @@ static void skt_hwtimer_stop(rt_hwtimer_t *timer)
     /* TBD:stop hwtimer(hwtimer->hwtimer_periph)*/
 }
 
-static const struct rt_hwtimer_ops hwtimer_ops =
+const static struct rt_hwtimer_ops hwtimer_ops =
 {
     skt_hwtimer_init,
     skt_hwtimer_start,
     skt_hwtimer_stop,
     skt_hwtimer_count_get,
-    skt_hwtimer_control,
+    skt_hwtimer_control
 };
 
-static const struct rt_hwtimer_info hwtimer_info =
+const static struct rt_hwtimer_info hwtimer_info =
 {
     25000000,               /* the maximum count frequency can be set */
     6103,                   /* the minimum count frequency can be set */

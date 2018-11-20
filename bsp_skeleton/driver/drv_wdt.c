@@ -49,12 +49,11 @@ static rt_err_t hw_wdt_control(rt_watchdog_t *wdt, int cmd, void *arg)
     return RT_EOK;
 }
 
-struct rt_watchdog_ops _wdt_ops =
+const static struct rt_watchdog_ops _wdt_ops =
 {
     hw_wdt_init,
     hw_wdt_control
 };
-
 
 int rt_hw_wdt_init(void)
 {

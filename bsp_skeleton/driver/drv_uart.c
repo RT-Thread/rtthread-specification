@@ -135,7 +135,7 @@ static void uart_irq_handler(struct rt_serial_device *serial)
 }
 
 
-const struct rt_uart_ops _uart_ops =
+const static struct rt_uart_ops _uart_ops =
 {
     hw_uart_configure,
     hw_uart_control,
