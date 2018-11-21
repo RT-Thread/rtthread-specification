@@ -14,7 +14,7 @@
 
 static rt_err_t hw_wdt_init(rt_watchdog_t *wdt)
 {
-    /* TBD: init watchdog */
+    /* Todo: init watchdog */
 
     return RT_EOK;
 }
@@ -25,24 +25,23 @@ static rt_err_t hw_wdt_control(rt_watchdog_t *wdt, int cmd, void *arg)
     {
     case RT_DEVICE_CTRL_WDT_SET_TIMEOUT:
 
-        /* TBD */
+        /* Todo:set wdt timeout value */
         break;
     case RT_DEVICE_CTRL_WDT_START:
 
-        /* TBD */
+        /* Todo:enable wdt */
         break;
     case RT_DEVICE_CTRL_WDT_STOP:
 
-        /* TBD */
+        /* Todo:stop wdt */
         break;
 
     case RT_DEVICE_CTRL_WDT_KEEPALIVE:
 
-        /* TBD */
+        /* Todo:refresh wdt */
         break;
     default:
 
-        /* TBD */
         break;
     }
 

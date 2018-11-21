@@ -32,26 +32,25 @@ static rt_err_t skt_hwtimer_control(rt_hwtimer_t *timer, rt_uint32_t cmd, void *
     {
     case HWTIMER_CTRL_FREQ_SET:
 
-        /* TBD:set the count frequency */
+        /* Todo:set the count frequency */
         break;
 
     case HWTIMER_CTRL_STOP:
 
-        /* TBD:stop timer */
+        /* Todo:stop timer */
         break;
 
     case HWTIMER_CTRL_INFO_GET:
 
-        /* TBD:sget a timer feature information */
+        /* Todo:get a timer feature information */
         break;
 
     case HWTIMER_CTRL_MODE_SET:
 
-        /* TBD:Setting the timing mode(oneshot/period) */
+        /* Todo:Set the timing mode(oneshot/period) */
         break;
     default:
 
-        /* TBD */
         break;
     }
     return res;
@@ -64,7 +63,7 @@ static rt_uint32_t skt_hwtimer_count_get(rt_hwtimer_t *timer)
 
     RT_ASSERT(hwtimer != RT_NULL);
 
-    /* TBD */
+    /* Todo: get hwtimer(hwtimer->hwtimer_periph) counter value*/
 
 }
 
@@ -75,7 +74,7 @@ static void skt_hwtimer_init(rt_hwtimer_t *timer, rt_uint32_t state)
 
     RT_ASSERT(hwtimer != RT_NULL);
 
-    /* TBD:init hwtimer(hwtimer->hwtimer_periph)*/
+    /* Todo:init hwtimer(hwtimer->hwtimer_periph)*/
 }
 
 static rt_err_t skt_hwtimer_start(rt_hwtimer_t *timer, rt_uint32_t cnt, rt_hwtimer_mode_t mode)
@@ -86,7 +85,7 @@ static rt_err_t skt_hwtimer_start(rt_hwtimer_t *timer, rt_uint32_t cnt, rt_hwtim
 
     RT_ASSERT(hwtimer != RT_NULL);
 
-    /* TBD:start hwtimer(hwtimer->hwtimer_periph)*/
+    /* Todo:start hwtimer(hwtimer->hwtimer_periph)*/
 
     /* install interrupt */
     rt_hw_interrupt_install(hwtimer->irqno, rt_device_hwtimer_isr,
@@ -104,7 +103,7 @@ static void skt_hwtimer_stop(rt_hwtimer_t *timer)
 
     RT_ASSERT(hwtimer != RT_NULL);
 
-    /* TBD:stop hwtimer(hwtimer->hwtimer_periph)*/
+    /* Todo:stop hwtimer(hwtimer->hwtimer_periph)*/
 }
 
 const static struct rt_hwtimer_ops hwtimer_ops =

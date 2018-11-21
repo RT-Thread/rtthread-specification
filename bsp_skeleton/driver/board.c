@@ -24,10 +24,10 @@ void rt_hw_console_output(const char* str)
     {
         if (*str=='\n')
         {
-            bsp_usart_putc('\r');
+            /* Todo:write data (\r) to serial hardware */
         }
-
-        bsp_usart_putc(*str++);
+        /* Todo:write data (*str) to serial hardware */
+        str++;
     }
 }
 

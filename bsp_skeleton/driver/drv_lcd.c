@@ -15,7 +15,43 @@ static rt_err_t skt_lcd_init(rt_device_t device)
 {
     RT_ASSERT(device != RT_NULL);
 
-    /* TBD: init LCD Hardware */
+    /* Todo: Init LCD */
+
+    return RT_EOK;
+}
+
+static rt_err_t skt_lcd_open(rt_device_t device)
+{
+    RT_ASSERT(device != RT_NULL);
+
+    /* Todo: Enable LCD */
+
+    return RT_EOK;
+}
+
+static rt_err_t skt_lcd_close(rt_device_t device)
+{
+    RT_ASSERT(device != RT_NULL);
+
+    /* Todo: Close LCD */
+
+    return RT_EOK;
+}
+
+static rt_err_t skt_lcd_read(rt_device_t device)
+{
+    RT_ASSERT(device != RT_NULL);
+
+    /* Todo: read LCD */
+
+    return RT_EOK;
+}
+
+static rt_err_t skt_lcd_write(rt_device_t device)
+{
+    RT_ASSERT(device != RT_NULL);
+
+    /* Todo: write LCD */
 
     return RT_EOK;
 }
@@ -26,24 +62,25 @@ static rt_err_t skt_lcd_control(rt_device_t device, int cmd, void *args)
     {
     case RTGRAPHIC_CTRL_RECT_UPDATE:
 
-        /* TBD */
+        /* Todo: update LCD data */
         break;
 
     case RTGRAPHIC_CTRL_POWERON:
-        /* TBD */
+        /* Todo: power on */
         break;
 
     case RTGRAPHIC_CTRL_POWEROFF:
-        /* TBD */
+        /* Todo: power off */
         break;
 
     case RTGRAPHIC_CTRL_GET_INFO:
-        /* TBD */
+        /* Todo: get lcd_info and store to args*/
         break;
 
     case RTGRAPHIC_CTRL_SET_MODE:
 
-        /* TBD */
+        break;
+    default:
         break;
     }
 
@@ -56,14 +93,14 @@ int rt_hw_lcd_init(void)
     static struct rt_device_graphic_info lcd_info;
     static struct rt_device lcd_dev;
 
-    /* TBD: Init lcd_info */
+    /* Todo: Init lcd_info */
 
     lcd_dev.type    = RT_Device_Class_Graphic;
     lcd_dev.init    = skt_lcd_init;
-    lcd_dev.open    = RT_NULL;
-    lcd_dev.close   = RT_NULL;
-    lcd_dev.read    = RT_NULL;
-    lcd_dev.write   = RT_NULL;
+    lcd_dev.open    = skt_lcd_open;
+    lcd_dev.close   = skt_lcd_close;
+    lcd_dev.read    = skt_lcd_read;
+    lcd_dev.write   = skt_lcd_write;
     lcd_dev.control = skt_lcd_control;
 
     lcd_dev.user_data = (void *)&lcd_info;

@@ -74,7 +74,7 @@ static rt_err_t hw_uart_control(struct rt_serial_device *serial, int cmd, void *
     case RT_DEVICE_CTRL_CONFIG:
         if (ctrl_arg == RT_DEVICE_FLAG_DMA_RX)
         {
-            /* TBD: DMA configuration  */
+            /* Todo: DMA configuration  */
         }
         break;
     }
@@ -90,7 +90,7 @@ static int hw_uart_putc(struct rt_serial_device *serial, char c)
 
     /* FIFO status, contain valid data */
 
-    /* TBD:write data (ch) to (uart->uart_periph) */
+    /* Todo:write data (ch) to (uart->uart_periph) */
 
     return 1;
 }
@@ -104,7 +104,7 @@ static int hw_uart_getc(struct rt_serial_device *serial)
 
     ch = -1;
 
-    /* TBD:receive data from (uart->uart_periph) and store it in (ch) */
+    /* Todo:receive data from (uart->uart_periph) and store it in (ch) */
 
     return ch;
 }
@@ -154,14 +154,12 @@ int rt_hw_uart_init(void)
     uart0_dev.parent.ops = &_uart_ops;
     uart0_dev.parent.config = RT_SERIAL_CONFIG_DEFAULT;
 
-    /* TBD: Init skt_uart0 other data */
+    /* Todo: Init uart0_dev other data */
 
     rt_hw_serial_register(&uart0_dev.parent,
                           "uart0",
                           RT_DEVICE_FLAG_RDWR | RT_DEVICE_FLAG_INT_RX,
                           &uart0_dev);
-
-    /* TBD: register other I2C device */
 
     return 0;
 }

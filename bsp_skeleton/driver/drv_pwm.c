@@ -29,19 +29,19 @@ static rt_err_t skt_pwm_control(struct rt_device_pwm *device, int cmd, void *arg
     {
     case PWM_CMD_ENABLE:
 
-        /* TBD: enable PWM(pwm->pwm_periph) */
+        /* Todo: enable PWM(pwm->pwm_periph) */
         break;
     case PWM_CMD_DISABLE:
 
-        /* TBD: disable PWM(pwm->pwm_periph) */
+        /* Todo: disable PWM(pwm->pwm_periph) */
         break;
     case PWM_CMD_SET:
 
-        /* TBD: according to (cfg) configure PWM(pwm->pwm_periph) */
+        /* Todo: according to (cfg) configure PWM(pwm->pwm_periph) */
         break;
     case PWM_CMD_GET:
 
-        /* TBD: get PWM(pwm->pwm_periph) configuration data */
+        /* Todo: get PWM(pwm->pwm_periph) configuration data */
         break;
     default:
 
@@ -60,11 +60,9 @@ int rt_hw_pwm_init(void)
 {
     static struct skt_pwm_dev pwm_dev0;
 
-    /* TBD: Init PWM Hardware */
+    /* Todo: Init PWM Hardware */
 
     rt_device_pwm_register(&pwm_dev0.parent, "pwm0", &_pwm_ops, &pwm_dev0);
-
-    /* TBD: register other PWM device */
 
     return 0;
 }

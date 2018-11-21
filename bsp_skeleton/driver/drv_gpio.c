@@ -14,33 +14,33 @@
 
 static void hw_pin_mode(struct rt_device *device, rt_base_t pin, rt_base_t mode)
 {
-    return ;
+    /* Todo:set pin mode */
 }
 
 static void hw_pin_write(struct rt_device *device, rt_base_t pin, rt_base_t value)
 {
-    return ;
+    /* Todo:set pin low or high */
 }
 
 static int hw_pin_read(struct rt_device *device, rt_base_t pin)
 {
-    return 0;
+    /* Todo:get pin status and return status value */
 }
 
 static rt_err_t hw_pin_attach_irq(struct rt_device *device, rt_int32_t pin,
                                   rt_uint32_t mode, void (*hdr)(void *args), void *args)
 {
-    return RT_EOK;
+    /* Todo:attach hdr to pin ISR */
 }
 
 static rt_err_t hw_pin_detach_irq(struct rt_device *device, rt_int32_t pin)
 {
-    return RT_EOK;
+    /* Todo:detach hdr from pin ISR */
 }
 
 static rt_err_t hw_pin_irq_enable(struct rt_device *device, rt_base_t pin, rt_uint32_t enabled)
 {
-    return RT_EOK;
+    /* Todo:enable pin ISR */
 }
 
 const static struct rt_pin_ops _hw_pin_ops =

@@ -29,28 +29,56 @@ struct skt_emac
 
 static rt_err_t skt_emac_init(rt_device_t dev)
 {
+    struct skt_emac *emac;
+
+    emac = SKT_EMAC_DEVICE(dev);
+    RT_ASSERT(emac != RT_NULL);
+
+    /* Todo:init emac */
     return RT_EOK;
 }
 
 static rt_err_t skt_emac_open(rt_device_t dev, rt_uint16_t oflag)
 {
+    struct skt_emac *emac;
+
+    emac = SKT_EMAC_DEVICE(dev);
+    RT_ASSERT(emac != RT_NULL);
+
+    /* Todo:enable emac */
     return RT_EOK;
 }
 
 static rt_err_t skt_emac_close(rt_device_t dev)
 {
+    struct skt_emac *emac;
+
+    emac = SKT_EMAC_DEVICE(dev);
+    RT_ASSERT(emac != RT_NULL);
+
+    /* Todo:close emac */
     return RT_EOK;
 }
 
 static rt_size_t skt_emac_read(rt_device_t dev, rt_off_t pos, void *buffer, rt_size_t size)
 {
-    rt_set_errno(-RT_ENOSYS);
+    struct skt_emac *emac;
+
+    emac = SKT_EMAC_DEVICE(dev);
+    RT_ASSERT(emac != RT_NULL);
+
+    /* Todo:read data from emac */
     return 0;
 }
 
 static rt_size_t skt_emac_write(rt_device_t dev, rt_off_t pos, const void *buffer, rt_size_t size)
 {
-    rt_set_errno(-RT_ENOSYS);
+    struct skt_emac *emac;
+
+    emac = SKT_EMAC_DEVICE(dev);
+    RT_ASSERT(emac != RT_NULL);
+
+    /* Todo:write data to emac */
     return 0;
 }
 

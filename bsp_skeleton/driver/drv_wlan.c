@@ -185,7 +185,7 @@ static rt_err_t wlan_init(struct rt_wlan_device *wlan)
         result = RT_EOK;
     }
 
-    /* wifi init */
+    /* Todo:wifi init */
 
     /* check result */
     if (1)
@@ -254,7 +254,7 @@ static rt_err_t wlan_scan(struct rt_wlan_device *wlan, struct rt_scan_info *scan
         return -RT_ERROR;
     }
 
-    /* do wifi scan operation */
+    /* Todo: wifi scan operation */
     
     /* check result */
     if (1)
@@ -287,7 +287,7 @@ static rt_err_t wlan_join(struct rt_wlan_device *wlan, struct rt_sta_info *sta_i
         return -RT_ERROR;
     }
 
-    /* do wifi join operation */
+    /* Todo: wifi join operation */
 
     /* check result */
     if (1)
@@ -321,7 +321,7 @@ static rt_err_t wlan_softap( struct rt_wlan_device *wlan, struct rt_ap_info *ap_
         return -RT_ERROR;
     }
 
-    /* do start ap operation */
+    /* Todo: start ap operation */
 
     /* check result */
     if (1)
@@ -354,7 +354,7 @@ static rt_err_t wlan_disconnect( struct rt_wlan_device *wlan )
         return -RT_ERROR;
     }
 
-    /* do wifi disconnect operation */
+    /* Todo: wifi disconnect operation */
 
     /* check result */
     if (1)
@@ -387,7 +387,7 @@ static rt_err_t wlan_ap_stop(struct rt_wlan_device *wlan)
         return -RT_ERROR;
     }
 
-    /* do stop soft-AP operation */
+    /* Todo: stop soft-AP operation */
 
     /* check result */
     if (1)
@@ -418,7 +418,7 @@ static rt_err_t wlan_ap_deauth( struct rt_wlan_device *wlan, rt_uint8_t mac[] )
         return -RT_ERROR;
     }
 
-    /* do death sta operation */
+    /* Todo: death sta operation */
 
     return RT_EOK;
 }
@@ -438,7 +438,7 @@ static rt_err_t wlan_scan_stop(struct rt_wlan_device *wlan)
         return -RT_ERROR;
     }
 
-    /* do wifi scan abort operation */
+    /* Todo: wifi scan abort operation */
 
     return RT_EOK;
 }

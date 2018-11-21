@@ -24,7 +24,7 @@ static rt_size_t hw_i2c_xfer(struct rt_i2c_bus_device *bus, struct rt_i2c_msg ms
     struct skt_i2c_bus *bus = SKT_I2C_DEVICE(bus);
     RT_ASSERT(i2c_bus != RT_NULL);
 
-    /* TBD: transfer msgs[] via I2C Hardware(bus->i2c_periph) */
+    /* Todo: transfer msgs[] via I2C hardware(bus->i2c_periph) */
 }
 
 const static struct rt_i2c_bus_device_ops _i2c_ops =
@@ -40,11 +40,9 @@ int rt_hw_i2c_init(void)
 
     i2c_bus0.parent.ops = &_i2c_ops;
 
-    /* TBD: Init I2C Hardware */
+    /* Todo: Init I2C Hardware */
 
     rt_i2c_bus_device_register(&i2c_bus0.parent, "i2c0");
-
-    /* TBD: register other I2C device */
 
     return 0;
 }
