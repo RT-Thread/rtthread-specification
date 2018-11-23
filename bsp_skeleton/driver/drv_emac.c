@@ -8,8 +8,8 @@
  */
 
 #include <rtthread.h>
+#include <rtdevice.h>
 
-#ifdef RT_USING_LWIP
 #include <netif/ethernetif.h>
 
 #include <lwipopts.h>
@@ -24,34 +24,65 @@ struct skt_emac
     struct eth_device parent;
 
     /* interface address info. */
-    rt_uint8_t  dev_addr[MAX_ADDR_LEN];         /* MAC address  */
+    rt_uint8_t dev_addr[MAX_ADDR_LEN];         /* MAC address  */
 };
-static struct skt_emac _emac;
 
 static rt_err_t skt_emac_init(rt_device_t dev)
 {
-    return RT_EOK;
+    rt_err_t res = RT_EOK;
+    struct skt_emac *emac;
+
+    emac = SKT_EMAC_DEVICE(dev);
+    RT_ASSERT(emac != RT_NULL);
+
+    /* Todo:init emac */
+    return res;
 }
 
 static rt_err_t skt_emac_open(rt_device_t dev, rt_uint16_t oflag)
 {
-    return RT_EOK;
+    rt_err_t res = RT_EOK;
+    struct skt_emac *emac;
+
+    emac = SKT_EMAC_DEVICE(dev);
+    RT_ASSERT(emac != RT_NULL);
+
+    /* Todo:enable emac */
+    return res;
 }
 
 static rt_err_t skt_emac_close(rt_device_t dev)
 {
-    return RT_EOK;
+    rt_err_t res = RT_EOK;
+    struct skt_emac *emac;
+
+    emac = SKT_EMAC_DEVICE(dev);
+    RT_ASSERT(emac != RT_NULL);
+
+    /* Todo:close emac */
+    return res;
 }
 
 static rt_size_t skt_emac_read(rt_device_t dev, rt_off_t pos, void *buffer, rt_size_t size)
 {
-    rt_set_errno(-RT_ENOSYS);
+    struct skt_emac *emac;
+
+    emac = SKT_EMAC_DEVICE(dev);
+    RT_ASSERT(emac != RT_NULL);
+
+    /* Todo:read data from emac */
+
     return 0;
 }
 
 static rt_size_t skt_emac_write(rt_device_t dev, rt_off_t pos, const void *buffer, rt_size_t size)
 {
-    rt_set_errno(-RT_ENOSYS);
+    struct skt_emac *emac;
+
+    emac = SKT_EMAC_DEVICE(dev);
+    RT_ASSERT(emac != RT_NULL);
+
+    /* Todo:write data to emac */
     return 0;
 }
 
@@ -79,24 +110,24 @@ static rt_err_t skt_emac_control(rt_device_t dev, int cmd, void *args)
 
 /* Ethernet device interface */
 /* transmit packet. */
-rt_err_t skt_emac_tx(rt_device_t dev, struct pbuf *p)
+static rt_err_t skt_emac_tx(rt_device_t dev, struct pbuf *p)
 {
-    rt_err_t result = RT_EOK;
+    rt_err_t res = RT_EOK;
     struct skt_emac *emac;
 
     emac = SKT_EMAC_DEVICE(dev);
     RT_ASSERT(emac != RT_NULL);
 
     /* copy pbuf to a whole ETH frame */
-    // pbuf_copy_partial(p, eth_frame, p->tot_len, 0);
+    /* pbuf_copy_partial(p, eth_frame, p->tot_len, 0); */
 
     /* send it out */
 
-    return result;
+    return res;
 }
 
 /* reception packet. */
-struct pbuf *skt_emac_rx(rt_device_t dev)
+static struct pbuf *skt_emac_rx(rt_device_t dev)
 {
     struct pbuf *p = RT_NULL;
     struct skt_emac *emac;
@@ -114,15 +145,16 @@ struct pbuf *skt_emac_rx(rt_device_t dev)
         p = pbuf_alloc(PBUF_LINK, length, PBUF_RAM);
         if (p)
         {
-            // pbuf_take(p, buffer, length);
+            /* pbuf_take(p, buffer, length); */
         }
     }
 
     return p;
 }
 
-int skt_emac_hw_init(void)
+int rt_hw_emac_init(void)
 {
+    static struct skt_emac _emac;
     /* test MAC address */
     _emac.dev_addr[0] = 0x00;
     _emac.dev_addr[1] = 0x11;
@@ -147,6 +179,5 @@ int skt_emac_hw_init(void)
 
     return 0;
 }
-INIT_DEVICE_EXPORT(skt_emac_hw_init);
-#endif
+INIT_DEVICE_EXPORT(rt_hw_emac_init);
 

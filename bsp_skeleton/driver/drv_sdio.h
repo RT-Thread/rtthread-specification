@@ -7,7 +7,7 @@
  * Date           Author       Notes
  */
 
-#ifndef DRV_SDIO_H__
-#define DRV_SDIO_H__
+#ifndef __DRV_SDIO_H__
+#define __DRV_SDIO_H__
 
 #endif

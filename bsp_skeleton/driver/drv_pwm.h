@@ -7,7 +7,9 @@
  * Date           Author       Notes
  */
 
-#ifndef DRV_PWM_H__
-#define DRV_PWM_H__
+#ifndef __DRV_PWM_H__
+#define __DRV_PWM_H__
+
+int rt_hw_pwm_init(void);
 
 #endif

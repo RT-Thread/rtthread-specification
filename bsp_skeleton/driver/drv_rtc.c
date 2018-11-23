@@ -11,38 +11,52 @@
 #include <rtthread.h>
 #include "drv_rtc.h"
 
-static struct rt_device rtc;
+
 static rt_err_t hw_rtc_open(rt_device_t dev, rt_uint16_t oflag)
 {
-    return RT_EOK;
+    rt_err_t res = RT_EOK;
+
+    /* Todo:enable RTC Hardware */
+    return res;
 }
 
 static rt_size_t hw_rtc_read(rt_device_t dev, rt_off_t pos, void *buffer, rt_size_t size)
 {
+    /* Todo:get RTC time */
     return 0;
 }
-
+static rt_size_t hw_rtc_write(rt_device_t dev, rt_off_t pos, const void *buffer, rt_size_t size)
+{
+    /* Todo:set RTC time */
+    return 0;
+}
 static rt_err_t hw_rtc_control(rt_device_t dev, int cmd, void *args)
 {
-    return RT_EOK;
+    rt_err_t res = RT_EOK;
+
+    /* Todo:control RTC */
+    return res;
 }
 
 int rt_hw_rtc_init(void)
 {
+    static struct rt_device rtc;
+
+    /* Todo: Init RTC Hardware */
+
     rtc.type    = RT_Device_Class_RTC;
-    /* register rtc device */
+    rtc.rx_indicate = RT_NULL;
+    rtc.tx_complete = RT_NULL;
     rtc.init    = RT_NULL;
     rtc.open    = hw_rtc_open;
     rtc.close   = RT_NULL;
     rtc.read    = hw_rtc_read;
-    rtc.write   = RT_NULL;
+    rtc.write   = hw_rtc_write;
     rtc.control = hw_rtc_control;
-
-    /* no private */
     rtc.user_data = RT_NULL;
-
+    /* register rtc device */
     rt_device_register(&rtc, "rtc", RT_DEVICE_FLAG_RDWR);
 
-    return;
+    return 0;
 }
 INIT_DEVICE_EXPORT(rt_hw_rtc_init);

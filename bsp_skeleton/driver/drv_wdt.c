@@ -12,42 +12,58 @@
 
 #include "drv_wdt.h"
 
-static rt_err_t _wdt_init(rt_watchdog_t *wdt)
+static rt_err_t hw_wdt_init(rt_watchdog_t *wdt)
 {
-    return RT_EOK;
+    rt_err_t res = RT_EOK;
+
+    /* Todo: init watchdog */
+    return res;
 }
 
-static rt_err_t _wdt_control(rt_watchdog_t *wdt, int cmd, void *arg)
+static rt_err_t hw_wdt_control(rt_watchdog_t *wdt, int cmd, void *arg)
 {
+    rt_err_t res = RT_EOK;
+
     switch (cmd)
     {
     case RT_DEVICE_CTRL_WDT_SET_TIMEOUT:
+
+        /* Todo:set wdt timeout value */
         break;
     case RT_DEVICE_CTRL_WDT_START:
+
+        /* Todo:enable wdt */
         break;
     case RT_DEVICE_CTRL_WDT_STOP:
+
+        /* Todo:stop wdt */
         break;
 
     case RT_DEVICE_CTRL_WDT_KEEPALIVE:
+
+        /* Todo:refresh wdt */
         break;
     default:
+
         break;
     }
 
-    return RT_EOK;
+    return res;
 }
 
-struct rt_watchdog_ops _wdt_ops =
+const static struct rt_watchdog_ops _wdt_ops =
 {
-    _wdt_init,
-    _wdt_control
+    hw_wdt_init,
+    hw_wdt_control
 };
 
-static struct rt_watchdog_device _wdt_device;
 int rt_hw_wdt_init(void)
 {
-    _wdt_device.ops = &_wdt_ops;
-    rt_hw_watchdog_register(&_wdt_device, "WDT", RT_DEVICE_FLAG_STANDALONE, &_wdt_param);
+    static struct rt_watchdog_device wdt_device;
+
+    wdt_device.ops = &_wdt_ops;
+
+    rt_hw_watchdog_register(&wdt_device, "wdt", RT_DEVICE_FLAG_STANDALONE, RT_NULL);
 
     return 0;
 }

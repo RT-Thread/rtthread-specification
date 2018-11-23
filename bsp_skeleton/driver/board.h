@@ -8,8 +8,8 @@
  * 2017-5-30      Bernard      the first version
  */
 
-#ifndef BOARD_H__
-#define BOARD_H__
+#ifndef __BOARD_H__
+#define __BOARD_H__
 
 #include <stdint.h>
 

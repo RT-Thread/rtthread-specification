@@ -7,9 +7,9 @@
  * Date           Author       Notes
  */
 
-#ifndef DRV_CPUTIME_H__
-#define DRV_CPUTIME_H__
+#ifndef __DRV_CPUTIME_H__
+#define __DRV_CPUTIME_H__
 
-int hw_cputime_init(void);
+int rt_hw_cputime_init(void);
 
 #endif

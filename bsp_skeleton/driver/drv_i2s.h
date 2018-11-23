@@ -6,3 +6,9 @@
  * Change Logs:
  * Date           Author       Notes
  */
+
+#ifndef __DRV_I2S_H__
+#define __DRV_I2S_H__
+
+
+#endif

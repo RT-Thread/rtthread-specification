@@ -7,9 +7,9 @@
  * Date           Author       Notes
  */
 
-#ifndef DRV_GPIO_H__
-#define DRV_GPIO_H__
+#ifndef __DRV_GPIO_H__
+#define __DRV_GPIO_H__
 
-int hw_gpio_init(void);
+int rt_hw_pin_init(void);
 
 #endif

@@ -7,8 +7,8 @@
  * Date           Author       Notes
  */
 
-#ifndef DRV_WDT_H__
-#define DRV_WDT_H__
+#ifndef __DRV_WDT_H__
+#define __DRV_WDT_H__
 
 int rt_hw_wdt_init(void);
 

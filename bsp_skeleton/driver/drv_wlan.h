@@ -7,8 +7,8 @@
  * Date           Author       Notes
  */
 
-#ifndef DRV_WLAN_H__
-#define DRV_WLAN_H__
+#ifndef __DRV_WLAN_H__
+#define __DRV_WLAN_H__
 
 int rt_hw_wlan_init(void);
 

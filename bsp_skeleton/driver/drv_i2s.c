@@ -6,3 +6,6 @@
  * Change Logs:
  * Date           Author       Notes
  */
+
+#include <rtthread.h>
+#include <rtdevice.h>

@@ -10,3 +10,117 @@
 #include <rtdevice.h>
 #include <rtthread.h>
 #include "drv_lcd.h"
+
+static rt_err_t skt_lcd_init(rt_device_t dev)
+{
+    rt_err_t res = RT_EOK;
+
+    RT_ASSERT(dev != RT_NULL);
+
+    /* Todo: Init LCD */
+
+    return res;
+}
+
+static rt_err_t skt_lcd_open(rt_device_t dev, rt_uint16_t oflag)
+{
+    rt_err_t res = RT_EOK;
+
+    RT_ASSERT(dev != RT_NULL);
+
+    /* Todo: Enable LCD */
+
+    return res;
+}
+
+static rt_err_t skt_lcd_close(rt_device_t dev)
+{
+    rt_err_t res = RT_EOK;
+
+    RT_ASSERT(dev != RT_NULL);
+
+    /* Todo: Close LCD */
+
+    return res;
+}
+
+static rt_size_t skt_lcd_read(rt_device_t dev, rt_off_t pos, void *buffer, rt_size_t size)
+{
+    rt_err_t res = RT_EOK;
+
+    RT_ASSERT(dev != RT_NULL);
+
+    /* Todo: read LCD */
+
+    return res;
+}
+
+static rt_size_t skt_lcd_write(rt_device_t dev, rt_off_t pos, const void *buffer, rt_size_t size)
+{
+    rt_err_t res = RT_EOK;
+
+    RT_ASSERT(dev != RT_NULL);
+
+    /* Todo: write LCD */
+
+    return res;
+}
+
+static rt_err_t skt_lcd_control(rt_device_t dev, int cmd, void *args)
+{
+    rt_err_t res = RT_EOK;
+
+    RT_ASSERT(dev != RT_NULL);
+
+    switch (cmd)
+    {
+    case RTGRAPHIC_CTRL_RECT_UPDATE:
+
+        /* Todo: update LCD data */
+        break;
+
+    case RTGRAPHIC_CTRL_POWERON:
+        /* Todo: power on */
+        break;
+
+    case RTGRAPHIC_CTRL_POWEROFF:
+        /* Todo: power off */
+        break;
+
+    case RTGRAPHIC_CTRL_GET_INFO:
+        /* Todo: get lcd_info and store to args*/
+        break;
+
+    case RTGRAPHIC_CTRL_SET_MODE:
+
+        break;
+    default:
+        break;
+    }
+
+    return res;
+}
+
+int rt_hw_lcd_init(void)
+{
+    rt_err_t ret;
+    static struct rt_device_graphic_info lcd_info;
+    static struct rt_device lcd_dev;
+
+    /* Todo: Init lcd_info */
+
+    lcd_dev.type    = RT_Device_Class_Graphic;
+    lcd_dev.init    = skt_lcd_init;
+    lcd_dev.open    = skt_lcd_open;
+    lcd_dev.close   = skt_lcd_close;
+    lcd_dev.read    = skt_lcd_read;
+    lcd_dev.write   = skt_lcd_write;
+    lcd_dev.control = skt_lcd_control;
+
+    lcd_dev.user_data = (void *)&lcd_info;
+
+    ret = rt_device_register(&lcd_dev, "lcd", RT_DEVICE_FLAG_RDWR);
+
+    return ret;
+}
+INIT_DEVICE_EXPORT(rt_hw_lcd_init);

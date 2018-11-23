@@ -14,96 +14,68 @@
 #include "board.h"
 #include "drv_uart.h"
 
-struct device_uart
-{
-    rt_uint32_t hw_base;
+#define SKT_UART_DEVICE(uart)    (struct skt_uart_dev *)(uart)
 
+struct skt_uart_dev
+{
+    struct rt_serial_device parent;
+    rt_uint32_t uart_periph;
     rt_uint32_t irqno;
 };
 
-static rt_err_t  uart_configure(struct rt_serial_device *serial, struct serial_configure *cfg);
-static rt_err_t  uart_control(struct rt_serial_device *serial, int cmd, void *arg);
-static int       uart_putc(struct rt_serial_device *serial, char c);
-static int       uart_getc(struct rt_serial_device *serial);
-static rt_size_t uart_dma_transmit(struct rt_serial_device *serial, rt_uint8_t *buf, rt_size_t size, int direction);
-
-static void     uart_irq_handler(int irqno, void *param);
-
-const struct rt_uart_ops _uart_ops =
+/* UART ISR */
+static void rt_hw_uart_isr(int irqno, void *param)
 {
-    uart_configure,
-    uart_control,
-    uart_putc,
-    uart_getc,
-    uart_dma_transmit
-};
+    struct skt_uart_dev *uart;
 
-/*
- * UART Initiation
- */
-int rt_hw_uart_init(void)
-{
-    struct rt_serial_device *serial;
-    struct device_uart      *uart;
-    struct serial_configure config = RT_SERIAL_CONFIG_DEFAULT;
+    uart = SKT_UART_DEVICE(param);
+    RT_ASSERT(uart != RT_NULL);
 
+    /* read interrupt status and clear it */
+    if (0) /* rx ind */
     {
-        static struct rt_serial_device  serial1;
-        static struct device_uart       uart1;
-
-        serial  = &serial1;
-        uart    = &uart1;
-
-        serial->ops              = &_uart_ops;
-        serial->config           = config;
-        serial->config.baud_rate = 115200;
-
-        uart->hw_base   = 0; // UART0_BASE;
-        uart->irqno     = 0; // IRQ_UART0;
-
-        rt_hw_serial_register(serial,
-                              "uart",
-                              RT_DEVICE_FLAG_RDWR | RT_DEVICE_FLAG_INT_RX,
-                              uart);
+        rt_hw_serial_isr(&uart->parent, RT_SERIAL_EVENT_RX_IND);
     }
 
-    return 0;
+    if (0) /* tx done */
+    {
+        rt_hw_serial_isr(&uart->parent, RT_SERIAL_EVENT_TX_DONE);
+    }
 }
 
 /*
  * UART interface
  */
-static rt_err_t uart_configure(struct rt_serial_device *serial, struct serial_configure *cfg)
+static rt_err_t hw_uart_configure(struct rt_serial_device *serial, struct serial_configure *cfg)
 {
-    rt_uint32_t baud_div;
-    struct device_uart *uart;
+    rt_err_t res = RT_EOK;
+    struct skt_uart_dev *uart;
 
     RT_ASSERT(serial != RT_NULL);
-    serial->config = *cfg;
 
-    uart = serial->parent.user_data;
+    uart = SKT_UART_DEVICE(serial->parent.user_data);
     RT_ASSERT(uart != RT_NULL);
 
-    /* Init UART Hardware */
+    /* Init UART Hardware(uart->uart_periph) */
 
     /* Enable UART clock */
 
     /* Set both receiver and transmitter in UART mode (not SIR) */
 
-    /* Set databits, stopbits and parity. (8-bit data, 1 stopbit, no parity) */
+    /* according to (cfg) set databits, baudrate, stopbits and parity. (8-bit data, 1 stopbit, no parity) */
 
-    /* set baudrate */
-
-    return (RT_EOK);
+    return res;
 }
 
-static rt_err_t uart_control(struct rt_serial_device *serial, int cmd, void *arg)
+static rt_err_t hw_uart_control(struct rt_serial_device *serial, int cmd, void *arg)
 {
-    struct device_uart *uart;
+    rt_err_t res = RT_EOK;
+    struct skt_uart_dev *uart;
 
-    uart = serial->parent.user_data;
-
+    uart = SKT_UART_DEVICE(serial->parent.user_data);
     RT_ASSERT(uart != RT_NULL);
+
+    rt_ubase_t ctrl_arg = (rt_ubase_t)arg;
 
     switch (cmd)
     {
@@ -114,59 +86,83 @@ static rt_err_t uart_control(struct rt_serial_device *serial, int cmd, void *arg
 
     case RT_DEVICE_CTRL_SET_INT:
         /* install interrupt */
-        rt_hw_interrupt_install(uart->irqno, uart_irq_handler,
+        rt_hw_interrupt_install(uart->irqno, rt_hw_uart_isr,
                                 serial, serial->parent.parent.name);
+        /* Enable the UART Interrupt */
         rt_hw_interrupt_umask(uart->irqno);
 
-        /* Enable the UART Interrupt */
+        break;
+
+    case RT_DEVICE_CTRL_CONFIG:
+        if (ctrl_arg == RT_DEVICE_FLAG_DMA_RX)
+        {
+            /* Todo: DMA configuration  */
+        }
         break;
     }
 
-    return (RT_EOK);
+    return res;
 }
 
-static int uart_putc(struct rt_serial_device *serial, char c)
+static int hw_uart_putc(struct rt_serial_device *serial, char c)
 {
-    struct device_uart *uart;
+    struct skt_uart_dev *uart;
 
-    uart = serial->parent.user_data;
+    uart = SKT_UART_DEVICE(serial->parent.user_data);
 
     /* FIFO status, contain valid data */
 
-    /* write data */
+    /* Todo:write data (ch) to (uart->uart_periph) */
 
-    return (1);
+    return 1;
 }
 
-static int uart_getc(struct rt_serial_device *serial)
+static int hw_uart_getc(struct rt_serial_device *serial)
 {
-    struct device_uart *uart = serial->parent.user_data;
+    int ch;
+    struct skt_uart_dev *uart;
 
-    /* Receive Data Available */
+    uart = SKT_UART_DEVICE(serial->parent.user_data);
 
-    return (-1);
+    ch = -1;
+
+    /* Todo:receive data from (uart->uart_periph) and store it in (ch) */
+
+    return ch;
 }
 
-static rt_size_t uart_dma_transmit(struct rt_serial_device *serial, rt_uint8_t *buf, rt_size_t size, int direction)
+static rt_size_t hw_uart_dma_transmit(struct rt_serial_device *serial, rt_uint8_t *buf, rt_size_t size, int direction)
 {
-    return (0);
+    return 0;
 }
 
-/* UART ISR */
-static void uart_irq_handler(int irqno, void *param)
+const static struct rt_uart_ops _uart_ops =
 {
-    rt_ubase_t isr;
-    struct rt_serial_device *serial = (struct rt_serial_device *)param;
-    struct device_uart *uart = serial->parent.user_data;
+    hw_uart_configure,
+    hw_uart_control,
+    hw_uart_putc,
+    hw_uart_getc,
+    hw_uart_dma_transmit
+};
 
-    /* read interrupt status and clear it */
-    if (0) /* rx ind */
-    {
-        rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_IND);
-    }
+/*
+ * UART Initiation
+ */
+int rt_hw_uart_init(void)
+{
+    static struct skt_uart_dev uart0_dev;
+    struct serial_configure config = RT_SERIAL_CONFIG_DEFAULT;
 
-    if (0) /* tx done */
-    {
-        rt_hw_serial_isr(serial, RT_SERIAL_EVENT_TX_DONE);
-    }
+    uart0_dev.parent.ops = &_uart_ops;
+    uart0_dev.parent.config = config;
+
+    /* Todo: Init uart0_dev other data */
+
+    rt_hw_serial_register(&uart0_dev.parent,
+                          "uart0",
+                          RT_DEVICE_FLAG_RDWR | RT_DEVICE_FLAG_INT_RX,
+                          &uart0_dev);
+
+    return 0;
 }
+INIT_DEVICE_EXPORT(rt_hw_uart_init);

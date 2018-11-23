@@ -1,50 +1,26 @@
 /*
- * File      : link.lds
- * COPYRIGHT (C) 2017, RT-Thread Development Team
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- *
- * Change Logs:
- * 2017-5-30     bernard       first version
+ * linker script for bsp_skeletonxxx with GNU ld
+ * bernard.xiong 2009-10-14
  */
 
-OUTPUT_FORMAT("elf32-tradlittlemips", "elf32-tradlittlemips", "elf32-tradlittlemips")
-OUTPUT_ARCH(mips)
-
+/* Program Entry, set to mark it as "used" and avoid gc */
 MEMORY
 {
-   /* 16M SDRAM */
-   DRAM : ORIGIN = 0x80800000, LENGTH = 0x01800000
-   /* 16K SRAM  */
-   IRAM : ORIGIN = 0x80000000, LENGTH = 0x00004000
+    CODE (rx) : ORIGIN = 0x08000000, LENGTH = 1024k /* 1024KB flash */
+    RAM  (rw) : ORIGIN = 0x20000000, LENGTH =  128k /* 128K sram */
 }
+ENTRY(Reset_Handler)
+_system_stack_size = 0x200;
 
-ENTRY(_start)
 SECTIONS
 {
-    . = 0x80800000 ;
-
-    .start :
+    .text :
     {
-        *(.start);
-    } > DRAM
+        . = ALIGN(4);
+        _stext = .;
+        KEEP(*(.isr_vector))            /* Startup code */
 
-    . = ALIGN(4);
-
-    .text : 
-    {
+        . = ALIGN(4);
         *(.text)                        /* remaining code */
         *(.text.*)                      /* remaining code */
         *(.rodata)                      /* read-only data (constants) */
@@ -52,94 +28,82 @@ SECTIONS
         *(.glue_7)
         *(.glue_7t)
         *(.gnu.linkonce.t*)
-     
+
         /* section information for finsh shell */
         . = ALIGN(4);
         __fsymtab_start = .;
         KEEP(*(FSymTab))
         __fsymtab_end = .;
+
         . = ALIGN(4);
         __vsymtab_start = .;
         KEEP(*(VSymTab))
         __vsymtab_end = .;
-        . = ALIGN(4);
 
         /* section information for initial. */
         . = ALIGN(4);
         __rt_init_start = .;
         KEEP(*(SORT(.rti_fn*)))
         __rt_init_end = .;
-        . = ALIGN(4);
 
         . = ALIGN(4);
         _etext = .;
-    } > DRAM
+    } > CODE = 0
 
-    .eh_frame_hdr : 
-    { 
-         *(.eh_frame_hdr) 
-         *(.eh_frame_entry)
-    } > DRAM
-    .eh_frame : ONLY_IF_RO { KEEP (*(.eh_frame)) } > DRAM
-
-    . = ALIGN(4);
-
-    .data : 
+    /* .ARM.exidx is sorted, so has to go in its own output section.  */
+    __exidx_start = .;
+    .ARM.exidx :
     {
-     *(.data)
-     *(.data.*)
-    
-     *(.data1)
-     *(.data1.*)
-     
-     . = ALIGN(8);
-     _gp = ABSOLUTE(.);     /* Base of small data */
-     
-     *(.sdata)
-     *(.sdata.*)
-    } > DRAM
+        *(.ARM.exidx* .gnu.linkonce.armexidx.*)
 
-    . = ALIGN(4);
-    _iramat = .;
+        /* This is used by the startup in order to initialize the .data secion */
+        _sidata = .;
+    } > CODE
+    __exidx_end = .;
 
-    .iram : AT(_iramat)
+    /* .data section which is used for initialized data */
+
+    .data : AT (_sidata)
     {
-        _iramstart = .;
-        *(.vectors.1);
-        . = 0x100;
-        *(.vectors.2);
-        . = 0x180;
-        *(.vectors.3);
-        . = 0x200;
-        *(.vectors.4);
-        *(.vectors);
+        . = ALIGN(4);
+        /* This is used by the startup in order to initialize the .data secion */
+        _sdata = . ;
 
-        *(.icode);
-        *(.irodata);
-        *(.idata);
-        KEEP(*(.vectors*))
-        _iramend = .;
-    } > IRAM
-    _iramcopy = LOADADDR(.iram);
+        *(.data)
+        *(.data.*)
+        *(.gnu.linkonce.d*)
 
-    .sbss : 
+        . = ALIGN(4);
+        /* This is used by the startup in order to initialize the .data secion */
+        _edata = . ;
+    } >RAM
+
+    .stack : 
     {
+        . = . + _system_stack_size;
+        . = ALIGN(4);
+        _estack = .;
+    } >RAM
+
     __bss_start = .;
-        *(.sbss)
-        *(.sbss.*)
-        *(.dynsbss)
-        *(.scommon)
-    } > DRAM
-
     .bss :
     {
+        . = ALIGN(4);
+        /* This is used by the startup in order to initialize the .bss secion */
+        _sbss = .;
+
         *(.bss)
         *(.bss.*)
-        *(.dynbss)
         *(COMMON)
+
+        . = ALIGN(4);
+        /* This is used by the startup in order to initialize the .bss secion */
+        _ebss = . ;
+        
+        *(.bss.init)
+    } > RAM
     __bss_end = .;
-    } > DRAM
-    
+
     _end = .;
 
     /* Stabs debugging sections.  */
