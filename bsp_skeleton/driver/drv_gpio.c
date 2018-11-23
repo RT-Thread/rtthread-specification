@@ -12,52 +12,67 @@
 
 #include "drv_gpio.h"
 
-static void hw_pin_mode(struct rt_device *device, rt_base_t pin, rt_base_t mode)
+static void skt_pin_mode(struct rt_device *device, rt_base_t pin, rt_base_t mode)
 {
-    return ;
+    /* Todo:set pin mode */
 }
 
-static void hw_pin_write(struct rt_device *device, rt_base_t pin, rt_base_t value)
+static void skt_pin_write(struct rt_device *device, rt_base_t pin, rt_base_t value)
 {
-    return ;
+    /* Todo:set pin low or high */
 }
 
-static int hw_pin_read(struct rt_device *device, rt_base_t pin)
+static int skt_pin_read(struct rt_device *device, rt_base_t pin)
 {
+    /* Todo:get pin status and return status value */
     return 0;
 }
 
-static rt_err_t hw_pin_attach_irq(struct rt_device *device, rt_int32_t pin,
-       rt_uint32_t mode, void (*hdr)(void *args), void *args)
+static rt_err_t skt_pin_attach_irq(struct rt_device *device, rt_int32_t pin,
+                                   rt_uint32_t mode, void (*hdr)(void *args), void *args)
 {
-    return RT_EOK;
+    rt_err_t ret = RT_EOK;
+
+    /* Todo:attach hdr to pin ISR */
+
+    return ret;
 }
 
-static rt_err_t hw_pin_detach_irq(struct rt_device *device, rt_int32_t pin)
+static rt_err_t skt_pin_detach_irq(struct rt_device *device, rt_int32_t pin)
 {
-    return RT_EOK;
+    rt_err_t ret = RT_EOK;
+
+    /* Todo:detach hdr from pin ISR */
+
+    return ret;
 }
 
-static rt_err_t hw_pin_irq_enable(struct rt_device *device, rt_base_t pin, rt_uint32_t enabled)
+static rt_err_t skt_pin_irq_enable(struct rt_device *device, rt_base_t pin, rt_uint32_t enabled)
 {
-    return RT_EOK;
+    rt_err_t ret = RT_EOK;
+
+    /* Todo:enable pin ISR */
+
+    return ret;
 }
 
-struct rt_pin_ops _hw_pin_ops =
+const static struct rt_pin_ops skt_pin_ops =
 {
-    hw_pin_mode,
-    hw_pin_write,
-    hw_pin_read,
+    skt_pin_mode,
+    skt_pin_write,
+    skt_pin_read,
 
-    hw_pin_attach_irq,
-    hw_pin_detach_irq,
-    hw_pin_irq_enable
+    skt_pin_attach_irq,
+    skt_pin_detach_irq,
+    skt_pin_irq_enable
 };
 
-int hw_pin_init(void)
+int rt_hw_pin_init(void)
 {
-    rt_device_pin_register("gpio", &_hw_pin_ops , RT_NULL);
+    rt_err_t ret = RT_EOK;
 
-    return 0;
+    ret = rt_device_pin_register("pin", &skt_pin_ops, RT_NULL);
+
+    return ret;
 }
-INIT_BOARD_EXPORT(hw_pin_init);
+INIT_BOARD_EXPORT(rt_hw_pin_init);

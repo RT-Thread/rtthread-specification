@@ -7,8 +7,7 @@
  * Date           Author       Notes
  */
 
-	.global	_start
+	.global	Reset_Handler
     .section ".start", "ax"
-    .set noreorder
-_start:
+Reset_Handler:
     nop

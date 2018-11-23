@@ -24,7 +24,7 @@ skeleton芯片 是 cc 公司的一款面向 nn 等领域的芯片。包括如下
 
 推荐使用[env工具][1]，可以在console下进入到`bsp/skeleton`目录中，运行以下命令：
 
-    scons
+`scons`
 
 来编译这个板级支持包。如果编译正确无误，会产生rtthread.elf、rtthread.bin文件。其中rtthread.bin需要烧写到设备中进行运行。
 

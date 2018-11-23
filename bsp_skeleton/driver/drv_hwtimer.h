@@ -7,9 +7,10 @@
  * Date           Author       Notes
  */
 
-#ifndef DRV_EMAC_H__
-#define DRV_EMAC_H__
+#ifndef DRV_HWTIMER_H__
+#define DRV_HWTIMER_H__
 
-int rt_hw_emac_init(void);
+int rt_hw_hwtimer_init(void);
 
 #endif
+
