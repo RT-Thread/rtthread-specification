@@ -11,17 +11,29 @@
 #include <rtthread.h>
 
 #include "board.h"
-#include "drv_uart.h"
+
+/**
+ * This function is used to display a string on console, normally, it's
+ * invoked by rt_kprintf
+ *
+ * @param str the displayed string
+ */
+void rt_hw_console_output(const char *str)
+{
+    while (*str)
+    {
+        if (*str == '\n')
+        {
+            /* Todo:write data (\r) to serial hardware */
+        }
+        /* Todo:write data (*str) to serial hardware */
+        str++;
+    }
+}
+
 
 void rt_hw_board_init(void)
 {
-    /* initialize hardware interrupt */
-    rt_hw_uart_init();
-
-#ifdef RT_USING_CONSOLE
-    /* set console device */
-    rt_console_set_device(RT_CONSOLE_DEVICE_NAME);
-#endif /* RT_USING_CONSOLE */
 
 #ifdef RT_USING_HEAP
     /* initialize memory system */
@@ -31,4 +43,10 @@ void rt_hw_board_init(void)
 #ifdef RT_USING_COMPONENTS_INIT
     rt_components_board_init();
 #endif
+
+#ifdef RT_USING_CONSOLE
+    /* set console device */
+    rt_console_set_device(RT_CONSOLE_DEVICE_NAME);
+#endif
+
 }

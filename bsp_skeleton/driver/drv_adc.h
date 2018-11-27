@@ -7,9 +7,9 @@
  * Date           Author       Notes
  */
 
-#ifndef DRV_EMAC_H__
-#define DRV_EMAC_H__
+#ifndef DRV_ADC_H__
+#define DRV_ADC_H__
 
-int rt_hw_emac_init(void);
+int rt_hw_adc_init(void);
 
 #endif

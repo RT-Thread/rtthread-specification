@@ -40,7 +40,7 @@ struct wifi
 static struct wifi wifi_sta;
 static struct wifi wifi_ap;
 
-rt_inline struct wifi *wifi_get_dev( rt_uint32_t wwd_if )
+rt_inline struct wifi *wifi_get_dev(rt_uint32_t wwd_if)
 {
     if (wwd_if == WIFI_STA_INTERFACE)
     {
@@ -48,25 +48,25 @@ rt_inline struct wifi *wifi_get_dev( rt_uint32_t wwd_if )
     }
     if (wwd_if == WIFI_AP_INTERFACE)
     {
-        return &wifi_ap;   
+        return &wifi_ap;
     }
     return RT_NULL;
 }
 
-rt_inline struct wifi *wifi_get_dev_by_wlan( struct rt_wlan_device *wlan )
+rt_inline struct wifi *wifi_get_dev_by_wlan(struct rt_wlan_device *wlan)
 {
     if (wlan == wifi_sta.wlan)
     {
-        return &wifi_sta;   
+        return &wifi_sta;
     }
     if (wlan == wifi_ap.wlan)
     {
-        return &wifi_ap;   
+        return &wifi_ap;
     }
     return RT_NULL;
 }
 
-static void scan_results_handler(void)
+void scan_results_handler(void)
 {
     struct rt_wlan_buff ind_buffer;
     struct rt_wlan_info wlan_info;
@@ -77,7 +77,7 @@ static void scan_results_handler(void)
     /* BSSID */
     memcpy(&wlan_info.bssid[0], &record->BSSID.octet[0], RT_WLAN_BSSID_MAX_LENGTH);
     /* SSID value */
-    strncpy( (char*)&wlan_info.ssid.val[0], (char*)&record->SSID.value[0], record->SSID.length);
+    strncpy((char *)&wlan_info.ssid.val[0], (char *)&record->SSID.value[0], record->SSID.length);
     /* SSID length */
     wlan_info.ssid.len = record->SSID.length;
     /* security */
@@ -90,7 +90,7 @@ static void scan_results_handler(void)
     wlan_info.rssi = record->signal_strength;
 #endif
 
-    ind_buffer.len = sizeof( struct rt_wlan_info );
+    ind_buffer.len = sizeof(struct rt_wlan_info);
     ind_buffer.data = &wlan_info;
 
     rt_wlan_dev_indicate_event_handle(wifi_sta.wlan, RT_WLAN_DEV_EVT_SCAN_REPORT, &ind_buffer);
@@ -98,10 +98,10 @@ static void scan_results_handler(void)
     return ;
 }
 
-static void join_events_handler(rt_uint32_t event_type)
+void join_events_handler(rt_uint32_t event_type)
 {
 
-    switch (event_type )
+    switch (event_type)
     {
     case WIFI_EVENT_LINK_UP:
     {
@@ -121,7 +121,7 @@ static void join_events_handler(rt_uint32_t event_type)
     }
 }
 
-static void softap_event_handler(rt_uint32_t event_type)
+void softap_event_handler(rt_uint32_t event_type)
 {
     struct rt_wlan_info info;
     struct rt_wlan_buff buff;
@@ -165,10 +165,10 @@ static void softap_event_handler(rt_uint32_t event_type)
 
 static rt_err_t wlan_init(struct rt_wlan_device *wlan)
 {
-    rt_err_t result = -RT_EIO;
+    rt_err_t ret = -RT_EIO;
     struct wifi *wifi;
 
-    if(wlan == RT_NULL)
+    if (wlan == RT_NULL)
     {
         return -RT_ERROR;
     }
@@ -176,32 +176,32 @@ static rt_err_t wlan_init(struct rt_wlan_device *wlan)
     wifi = wifi_get_dev_by_wlan(wlan);
     if (wifi == RT_NULL)
     {
-        return -RT_ERROR; 
+        return -RT_ERROR;
     }
 
-    if(wifi->status != WIFI_UNINITED)
+    if (wifi->status != WIFI_UNINITED)
     {
         /* this wlan already inited */
-        result = RT_EOK;
+        ret = RT_EOK;
     }
 
-    /* wifi init */
+    /* Todo:wifi init */
 
     /* check result */
     if (1)
     {
-        result = RT_EOK;
+        ret = RT_EOK;
     }
 
-    return result;
+    return ret;
 }
 
-static rt_err_t wlan_mode( struct rt_wlan_device *wlan, rt_wlan_mode_t mode )
+static rt_err_t wlan_mode(struct rt_wlan_device *wlan, rt_wlan_mode_t mode)
 {
     struct wifi *wifi;
-    rt_err_t result = RT_EOK;
+    rt_err_t ret = RT_EOK;
 
-    if(wlan == RT_NULL)
+    if (wlan == RT_NULL)
     {
         return -RT_ERROR;
     }
@@ -212,12 +212,12 @@ static rt_err_t wlan_mode( struct rt_wlan_device *wlan, rt_wlan_mode_t mode )
         return -RT_ERROR;
     }
 
-    if( mode == RT_WLAN_STATION )
+    if (mode == RT_WLAN_STATION)
     {
         /* set wifi station mode */
         wifi->interface = WIFI_STA_INTERFACE;
     }
-    else if(mode == RT_WLAN_AP)
+    else if (mode == RT_WLAN_AP)
     {
         /* set wifi ap mode */
         wifi->interface = WIFI_AP_INTERFACE;
@@ -226,18 +226,18 @@ static rt_err_t wlan_mode( struct rt_wlan_device *wlan, rt_wlan_mode_t mode )
     /* check result */
     if (1)
     {
-        result = RT_EOK;
+        ret = RT_EOK;
     }
 
-    return result;
+    return ret;
 }
 
 static rt_err_t wlan_scan(struct rt_wlan_device *wlan, struct rt_scan_info *scan_info)
 {
     struct wifi *wifi;
-    rt_err_t result = RT_EOK;
+    rt_err_t ret = RT_EOK;
 
-    if(wlan == RT_NULL)
+    if (wlan == RT_NULL)
     {
         return -RT_ERROR;
     }
@@ -254,23 +254,23 @@ static rt_err_t wlan_scan(struct rt_wlan_device *wlan, struct rt_scan_info *scan
         return -RT_ERROR;
     }
 
-    /* do wifi scan operation */
-    
+    /* Todo: wifi scan operation */
+
     /* check result */
     if (1)
     {
-        result = RT_EOK;
+        ret = RT_EOK;
     }
 
-    return result;
+    return ret;
 }
 
 static rt_err_t wlan_join(struct rt_wlan_device *wlan, struct rt_sta_info *sta_info)
 {
-    rt_err_t result;
+    rt_err_t ret;
     struct wifi *wifi;
 
-    if((wlan == RT_NULL) || (sta_info == RT_NULL))
+    if ((wlan == RT_NULL) || (sta_info == RT_NULL))
     {
         return -RT_ERROR;
     }
@@ -287,23 +287,23 @@ static rt_err_t wlan_join(struct rt_wlan_device *wlan, struct rt_sta_info *sta_i
         return -RT_ERROR;
     }
 
-    /* do wifi join operation */
+    /* Todo: wifi join operation */
 
     /* check result */
     if (1)
     {
-        result = RT_EOK;
+        ret = RT_EOK;
     }
 
-    return result;
+    return ret;
 }
 
-static rt_err_t wlan_softap( struct rt_wlan_device *wlan, struct rt_ap_info *ap_info )
+static rt_err_t wlan_softap(struct rt_wlan_device *wlan, struct rt_ap_info *ap_info)
 {
-    rt_err_t result = RT_EOK;
+    rt_err_t ret = RT_EOK;
     struct wifi *wifi;
 
-    if((wlan == RT_NULL) || (ap_info == RT_NULL))
+    if ((wlan == RT_NULL) || (ap_info == RT_NULL))
     {
         /* parameter error */
         return -RT_ERROR;
@@ -315,29 +315,29 @@ static rt_err_t wlan_softap( struct rt_wlan_device *wlan, struct rt_ap_info *ap_
         return -RT_ERROR;
     }
 
-    if( wifi->interface != WIFI_AP_INTERFACE )
+    if (wifi->interface != WIFI_AP_INTERFACE)
     {
         /* this wlan not support ap mode */
         return -RT_ERROR;
     }
 
-    /* do start ap operation */
+    /* Todo: start ap operation */
 
     /* check result */
     if (1)
     {
-        result = RT_EOK;
+        ret = RT_EOK;
     }
 
-    return result;
+    return ret;
 }
 
-static rt_err_t wlan_disconnect( struct rt_wlan_device *wlan )
+static rt_err_t wlan_disconnect(struct rt_wlan_device *wlan)
 {
-    rt_err_t result;
+    rt_err_t ret;
     struct wifi *wifi;
 
-    if(wlan == RT_NULL)
+    if (wlan == RT_NULL)
     {
         return -RT_ERROR;
     }
@@ -348,29 +348,29 @@ static rt_err_t wlan_disconnect( struct rt_wlan_device *wlan )
         return -RT_ERROR;
     }
 
-    if( wifi->interface != WIFI_STA_INTERFACE )
+    if (wifi->interface != WIFI_STA_INTERFACE)
     {
         /* this wlan not support sta mode */
         return -RT_ERROR;
     }
 
-    /* do wifi disconnect operation */
+    /* Todo: wifi disconnect operation */
 
     /* check result */
     if (1)
     {
-        result = RT_EOK;
+        ret = RT_EOK;
     }
 
-    return result;
+    return ret;
 }
 
 static rt_err_t wlan_ap_stop(struct rt_wlan_device *wlan)
 {
     struct wifi *wifi;
-    rt_err_t result;
+    rt_err_t ret;
 
-    if(wlan == RT_NULL)
+    if (wlan == RT_NULL)
     {
         return -RT_ERROR;
     }
@@ -381,28 +381,28 @@ static rt_err_t wlan_ap_stop(struct rt_wlan_device *wlan)
         return -RT_ERROR;
     }
 
-    if( wifi->interface != WIFI_AP_INTERFACE )
+    if (wifi->interface != WIFI_AP_INTERFACE)
     {
         /* this wlan not support ap mode */
         return -RT_ERROR;
     }
 
-    /* do stop soft-AP operation */
+    /* Todo: stop soft-AP operation */
 
     /* check result */
     if (1)
     {
-        result = RT_EOK;
+        ret = RT_EOK;
     }
 
-    return result;
+    return ret;
 }
 
-static rt_err_t wlan_ap_deauth( struct rt_wlan_device *wlan, rt_uint8_t mac[] )
+static rt_err_t wlan_ap_deauth(struct rt_wlan_device *wlan, rt_uint8_t mac[])
 {
     struct wifi *wifi;
 
-    if(wlan == RT_NULL)
+    if (wlan == RT_NULL)
     {
         return -RT_ERROR;
     }
@@ -413,12 +413,12 @@ static rt_err_t wlan_ap_deauth( struct rt_wlan_device *wlan, rt_uint8_t mac[] )
         return -RT_ERROR;
     }
 
-    if( wifi->interface != WIFI_AP_INTERFACE )
+    if (wifi->interface != WIFI_AP_INTERFACE)
     {
         return -RT_ERROR;
     }
 
-    /* do death sta operation */
+    /* Todo: death sta operation */
 
     return RT_EOK;
 }
@@ -426,8 +426,8 @@ static rt_err_t wlan_ap_deauth( struct rt_wlan_device *wlan, rt_uint8_t mac[] )
 static rt_err_t wlan_scan_stop(struct rt_wlan_device *wlan)
 {
     struct wifi *wifi;
-    
-    if(wlan == RT_NULL)
+
+    if (wlan == RT_NULL)
     {
         return -RT_ERROR;
     }
@@ -438,7 +438,7 @@ static rt_err_t wlan_scan_stop(struct rt_wlan_device *wlan)
         return -RT_ERROR;
     }
 
-    /* do wifi scan abort operation */
+    /* Todo: wifi scan abort operation */
 
     return RT_EOK;
 }
@@ -448,7 +448,7 @@ static int wlan_get_rssi(struct rt_wlan_device *wlan)
     int32_t rssi = 0;
     struct wifi *wifi;
 
-    if(wlan == RT_NULL)
+    if (wlan == RT_NULL)
     {
         return -RT_ERROR;
     }
@@ -472,9 +472,9 @@ static int wlan_get_rssi(struct rt_wlan_device *wlan)
 
 static rt_err_t wlan_set_powersave(struct rt_wlan_device *wlan, int level)
 {
-    rt_err_t result;
+    rt_err_t ret;
 
-    if ( level )
+    if (level)
     {
         /* enable  power save */
     }
@@ -486,10 +486,10 @@ static rt_err_t wlan_set_powersave(struct rt_wlan_device *wlan, int level)
     /* check result */
     if (1)
     {
-        result = RT_EOK;
+        ret = RT_EOK;
     }
 
-    return result;
+    return ret;
 }
 
 static int wlan_get_powersave(struct rt_wlan_device *wlan)
@@ -504,7 +504,7 @@ static int wlan_get_powersave(struct rt_wlan_device *wlan)
 
 static rt_err_t wlan_cfg_promisc(struct rt_wlan_device *wlan, rt_bool_t start)
 {
-    if(start == RT_TRUE)
+    if (start == RT_TRUE)
     {
         /* enable promisc */
     }
@@ -543,10 +543,10 @@ static rt_err_t wlan_set_channel(struct rt_wlan_device *wlan, int channel)
 static int wlan_get_channel(struct rt_wlan_device *wlan)
 {
     int channel = -1;
-    
+
     /* get channel */
     channel = channel;
-    
+
     return channel;
 }
 
@@ -556,7 +556,7 @@ static rt_err_t wlan_set_country(struct rt_wlan_device *wlan, rt_country_code_t 
     {
         return -RT_ERROR;
     }
-    
+
     /* set country code */
 
     return RT_EOK;
@@ -565,16 +565,16 @@ static rt_err_t wlan_set_country(struct rt_wlan_device *wlan, rt_country_code_t 
 static rt_country_code_t wlan_get_country(struct rt_wlan_device *wlan)
 {
     rt_country_code_t country_code = RT_COUNTRY_UNKNOWN;
-    
+
     /* get country code */
     country_code = country_code;
-    
+
     return country_code;
 }
 
 static rt_err_t wlan_set_mac(struct rt_wlan_device *wlan, rt_uint8_t mac[])
 {
-    if (mac == RT_NULL) 
+    if (mac == RT_NULL)
     {
         return -RT_ERROR;
     }
@@ -584,9 +584,9 @@ static rt_err_t wlan_set_mac(struct rt_wlan_device *wlan, rt_uint8_t mac[])
     return RT_EOK;
 }
 
-static rt_err_t wlan_get_mac( struct rt_wlan_device *wlan, rt_uint8_t mac[] )
+static rt_err_t wlan_get_mac(struct rt_wlan_device *wlan, rt_uint8_t mac[])
 {
-    if (mac == RT_NULL) 
+    if (mac == RT_NULL)
     {
         return -RT_ERROR;
     }
@@ -616,42 +616,52 @@ static int wlan_send(struct rt_wlan_device *wlan, void *buff, int len)
     return RT_EOK;
 }
 
-static const struct rt_wlan_dev_ops ops =
+const static struct rt_wlan_dev_ops ops =
 {
-   .wlan_init          = wlan_init          ,
-   .wlan_mode          = wlan_mode          ,
-   .wlan_scan          = wlan_scan          ,
-   .wlan_join          = wlan_join          ,
-   .wlan_softap        = wlan_softap        ,
-   .wlan_disconnect    = wlan_disconnect    ,
-   .wlan_ap_stop       = wlan_ap_stop       ,
-   .wlan_ap_deauth     = wlan_ap_deauth     ,
-   .wlan_scan_stop     = wlan_scan_stop     ,
-   .wlan_get_rssi      = wlan_get_rssi      ,
-   .wlan_set_powersave = wlan_set_powersave ,
-   .wlan_get_powersave = wlan_get_powersave ,
-   .wlan_cfg_promisc   = wlan_cfg_promisc   ,
-   .wlan_cfg_filter    = wlan_cfg_filter    ,
-   .wlan_set_channel   = wlan_set_channel   ,
-   .wlan_get_channel   = wlan_get_channel   ,
-   .wlan_set_country   = wlan_set_country   ,
-   .wlan_get_country   = wlan_get_country   ,
-   .wlan_set_mac       = wlan_set_mac       ,
-   .wlan_get_mac       = wlan_get_mac       ,
-   .wlan_recv          = wlan_recv          ,
-   .wlan_send          = wlan_send          ,
+    .wlan_init          = wlan_init,
+    .wlan_mode          = wlan_mode,
+    .wlan_scan          = wlan_scan,
+    .wlan_join          = wlan_join,
+    .wlan_softap        = wlan_softap,
+    .wlan_disconnect    = wlan_disconnect,
+    .wlan_ap_stop       = wlan_ap_stop,
+    .wlan_ap_deauth     = wlan_ap_deauth,
+    .wlan_scan_stop     = wlan_scan_stop,
+    .wlan_get_rssi      = wlan_get_rssi,
+    .wlan_set_powersave = wlan_set_powersave,
+    .wlan_get_powersave = wlan_get_powersave,
+    .wlan_cfg_promisc   = wlan_cfg_promisc,
+    .wlan_cfg_filter    = wlan_cfg_filter,
+    .wlan_set_channel   = wlan_set_channel,
+    .wlan_get_channel   = wlan_get_channel,
+    .wlan_set_country   = wlan_set_country,
+    .wlan_get_country   = wlan_get_country,
+    .wlan_set_mac       = wlan_set_mac,
+    .wlan_get_mac       = wlan_get_mac,
+    .wlan_recv          = wlan_recv,
+    .wlan_send          = wlan_send,
 };
 
 int rt_hw_wlan_init(void)
 {
-    struct rt_wlan_device *wlan = RT_NULL;    
+    rt_err_t ret = RT_EOK;
+    static struct rt_wlan_device wlan_sta;
+    static struct rt_wlan_device wlan_ap;
 
-    wlan = rt_wlan_dev_register(RT_WLAN_DEVICE_STA_NAME, &ops, 0, &wifi_sta);
-    wifi_sta.wlan = wlan;
+    wifi_sta.wlan = &wlan_sta;
+    wifi_ap.wlan = &wlan_ap;
 
-    wlan = rt_wlan_dev_register(RT_WLAN_DEVICE_AP_NAME, &ops, 0, &wifi_ap);
-    wifi_ap.wlan = wlan;
+    ret = rt_wlan_dev_register(&wlan_sta, RT_WLAN_DEVICE_STA_NAME, &ops, 0, &wifi_sta);
+    if (ret != RT_EOK)
+    {
+        return ret;
+    }
+    ret = rt_wlan_dev_register(&wlan_ap, RT_WLAN_DEVICE_AP_NAME, &ops, 0, &wifi_ap);
+    if (ret != RT_EOK)
+    {
+        return ret;
+    }
 
-    return RT_EOK;
+    return ret;
 }
 INIT_DEVICE_EXPORT(rt_hw_wlan_init);

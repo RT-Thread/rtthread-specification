@@ -10,6 +10,6 @@
 #ifndef DRV_GPIO_H__
 #define DRV_GPIO_H__
 
-int hw_gpio_init(void);
+int rt_hw_pin_init(void);
 
 #endif

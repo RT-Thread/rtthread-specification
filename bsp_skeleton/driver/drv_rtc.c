@@ -11,38 +11,97 @@
 #include <rtthread.h>
 #include "drv_rtc.h"
 
-static struct rt_device rtc;
-static rt_err_t hw_rtc_open(rt_device_t dev, rt_uint16_t oflag)
+static rt_err_t skt_rtc_init(rt_device_t dev)
 {
-    return RT_EOK;
+    rt_err_t ret = RT_EOK;
+
+    RT_ASSERT(dev != RT_NULL);
+
+    /* Todo: init RTC */
+
+    return ret;
 }
 
-static rt_size_t hw_rtc_read(rt_device_t dev, rt_off_t pos, void *buffer, rt_size_t size)
+static rt_err_t skt_rtc_open(rt_device_t dev, rt_uint16_t oflag)
 {
+    rt_err_t ret = RT_EOK;
+    RT_ASSERT(dev != RT_NULL);
+
+    /* Todo:enable RTC Hardware */
+    return ret;
+}
+
+static rt_err_t skt_rtc_close(rt_device_t dev)
+{
+    rt_err_t ret = RT_EOK;
+
+    RT_ASSERT(dev != RT_NULL);
+
+    /* Todo: close RTC */
+
+    return ret;
+}
+
+static rt_size_t skt_rtc_read(rt_device_t dev, rt_off_t pos, void *buffer, rt_size_t size)
+{
+    RT_ASSERT(dev != RT_NULL);
+
+    /* Todo:get RTC time */
     return 0;
 }
-
-static rt_err_t hw_rtc_control(rt_device_t dev, int cmd, void *args)
+static rt_size_t skt_rtc_write(rt_device_t dev, rt_off_t pos, const void *buffer, rt_size_t size)
 {
-    return RT_EOK;
+    RT_ASSERT(dev != RT_NULL);
+
+    /* Todo:set RTC time */
+    return 0;
 }
+static rt_err_t skt_rtc_control(rt_device_t dev, int cmd, void *args)
+{
+    rt_err_t ret = RT_EOK;
+
+    RT_ASSERT(dev != RT_NULL);
+
+    /* Todo:control RTC */
+    return ret;
+}
+
+#ifdef RT_USING_DEVICE_OPS
+const static struct rt_device_ops skt_rtc_ops =
+{
+    skt_rtc_init,
+    skt_rtc_open,
+    skt_rtc_close,
+    skt_rtc_read,
+    skt_rtc_write,
+    skt_rtc_control
+};
+#endif
 
 int rt_hw_rtc_init(void)
 {
-    rtc.type    = RT_Device_Class_RTC;
-    /* register rtc device */
-    rtc.init    = RT_NULL;
-    rtc.open    = hw_rtc_open;
-    rtc.close   = RT_NULL;
-    rtc.read    = hw_rtc_read;
-    rtc.write   = RT_NULL;
-    rtc.control = hw_rtc_control;
+    rt_err_t ret = RT_EOK;
+    static struct rt_device rtc_dev;
 
-    /* no private */
-    rtc.user_data = RT_NULL;
+    rtc_dev.type    = RT_Device_Class_RTC;
+    rtc_dev.rx_indicate = RT_NULL;
+    rtc_dev.tx_complete = RT_NULL;
 
-    rt_device_register(&rtc, "rtc", RT_DEVICE_FLAG_RDWR);
+#ifdef RT_USING_DEVICE_OPS
+    lcd_dev.ops        = &skt_lcd_ops;
+#else
+    rtc_dev.init    = skt_rtc_init;
+    rtc_dev.open    = skt_rtc_open;
+    rtc_dev.close   = skt_rtc_close;
+    rtc_dev.read    = skt_rtc_read;
+    rtc_dev.write   = skt_rtc_write;
+    rtc_dev.control = skt_rtc_control;
+#endif
 
-    return;
+    rtc_dev.user_data = RT_NULL;
+
+    ret = rt_device_register(&rtc_dev, "rtc", RT_DEVICE_FLAG_RDWR);
+
+    return ret;
 }
 INIT_DEVICE_EXPORT(rt_hw_rtc_init);

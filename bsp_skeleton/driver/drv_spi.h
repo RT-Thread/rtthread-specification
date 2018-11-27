@@ -7,7 +7,9 @@
  * Date           Author       Notes
  */
 
-#ifndef SKT_SPI_H__
-#define SKT_SPI_H__
+#ifndef DRV_SPI_H__
+#define DRV_SPI_H__
+
+int rt_hw_spi_init(void);
 
 #endif
