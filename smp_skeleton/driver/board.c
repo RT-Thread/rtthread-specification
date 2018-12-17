@@ -11,9 +11,30 @@
 #include <rtthread.h>
 
 #include "board.h"
-#include "drv_timer.h"
 
-void idle_wfi(void);
+extern void idle_wfi(void);
+extern void rt_hw_ipi_handler_install(int ipi_vector, rt_isr_handler_t ipi_isr_handler);
+
+void rt_hw_timer_isr(int vector, void *param)
+{
+    rt_tick_increase();
+
+    /*todo: clear interrupt */
+}
+
+int rt_hw_timer_init(void)
+{
+    /*todo: timer hw init*/
+
+    /*todo: install timer interrupt
+    rt_hw_interrupt_install(TIMER_CPU0, rt_hw_timer_isr, RT_NULL, "tick");
+    rt_hw_interrupt_umask(IRQ_TIMER_CPU0);
+    */
+
+    return 0;
+}
+INIT_BOARD_EXPORT(rt_hw_timer_init);
+
 /**
  * This function will initialize beaglebone board
  */
@@ -30,11 +51,5 @@ void rt_hw_board_init(void)
 
     rt_thread_idle_sethook(idle_wfi);
 
-    /*todo: install IPI interrupt 
-    note:RT_SCHEDULE_IPI_IRQ(value is 0) may be different from real IRQ, please adjust it)
-
-    rt_hw_interrupt_install(RT_SCHEDULE_IPI_IRQ + adjust_value, rt_scheduler_ipi_handler, RT_NULL, "ipi");
-    rt_hw_interrupt_umask(RT_SCHEDULE_IPI_IRQ + adjust_value);
-
-    */
+    rt_hw_ipi_handler_install(RT_SCHEDULE_IPI, rt_scheduler_ipi_handler);
 }
