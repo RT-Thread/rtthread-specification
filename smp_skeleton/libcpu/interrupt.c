@@ -16,6 +16,14 @@
 /* exception and interrupt handler table */
 struct rt_irq_desc isr_table[MAX_HANDLERS];
 
+#ifndef RT_USING_SMP
+/* todo: Those varibles will be used in ISR */
+/*
+rt_uint32_t rt_interrupt_from_thread;
+rt_uint32_t rt_interrupt_to_thread;
+rt_uint32_t rt_thread_switch_interrupt_flag;
+*/
+#endif
 /**
  * This function will initialize hardware interrupt
  */
@@ -23,6 +31,14 @@ void rt_hw_interrupt_init(void)
 {
     /* initialize exceptions table */
     rt_memset(isr_table, 0x00, sizeof(isr_table));
+#ifndef RT_USING_SMP
+/* todo: init those varibles above */
+/*
+    rt_interrupt_from_thread = 0;
+    rt_interrupt_to_thread = 0;
+    rt_thread_switch_interrupt_flag = 0;
+*/
+#endif
 }
 
 /**
@@ -60,7 +76,8 @@ void rt_hw_trap_irq(void)
     rt_isr_handler_t isr_func;
     extern struct rt_irq_desc isr_table[];
 
-    /* todo: get irq nr
+    /* todo: get irq nr */
+    /*
     ir = get hw nr;
     */
 

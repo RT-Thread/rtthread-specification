@@ -10,21 +10,12 @@
 #include <rthw.h>
 #include <rtthread.h>
 
+#ifdef RT_USING_SMP
 int rt_hw_cpu_id(void)
 {
     int cpu_id = 0;
     /*todo: arch get cpu id to cpu_id*/
     return cpu_id;
-}
-
-rt_base_t rt_hw_local_irq_disable(void)
-{
-    return 0;
-}
-
-void rt_hw_local_irq_enable(rt_base_t level)
-{
-    return ;
 }
 
 void rt_hw_spin_lock(rt_hw_spinlock_t *lock)
@@ -37,10 +28,6 @@ void rt_hw_spin_unlock(rt_hw_spinlock_t *lock)
     /* todo: */
 }
 
-void idle_wfi(void)
-{
-    /*todo: wait for wakeup or do nothing */
-}
 
 void rt_hw_ipi_send(int ipi_vector, unsigned int cpu_mask)
 {
@@ -52,6 +39,12 @@ void rt_hw_ipi_handler_install(int ipi_vector, rt_isr_handler_t ipi_isr_handler)
 {
     /* todo: set ipi handler */
     /* note: ipi_vector maybe different with irq_vector */
+}
+#endif /*RT_USING_SMP*/
+
+void idle_wfi(void)
+{
+    /*todo: wait for wakeup or do nothing */
 }
 
 rt_uint8_t *rt_hw_stack_init(void       *entry,

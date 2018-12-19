@@ -51,5 +51,8 @@ void rt_hw_board_init(void)
 
     rt_thread_idle_sethook(idle_wfi);
 
+#ifdef RT_USING_SMP
+    /* install IPI handle */
     rt_hw_ipi_handler_install(RT_SCHEDULE_IPI, rt_scheduler_ipi_handler);
+#endif
 }

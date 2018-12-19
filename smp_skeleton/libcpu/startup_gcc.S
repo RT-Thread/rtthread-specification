@@ -7,6 +7,7 @@
  * Date           Author       Notes
  */
 
+#include "rtconfig.h"
 .text
 /* reset entry */
 .globl _reset
@@ -24,6 +25,7 @@ _reset:
 
 /*todo: exception vector */
 
+#ifdef RT_USING_SMP
 .global secondary_cpu_start
 secondary_cpu_start:
     /* todo: this cpu init */
@@ -31,3 +33,4 @@ secondary_cpu_start:
     /* todo: init stack of this cpu*/
 
     /* todo: jump to secondary_cpu_c_start*/
+#endif

@@ -13,6 +13,7 @@
 
 #include "board.h"
 
+#ifdef RT_USING_SMP
 void rt_hw_timer2_isr(int vector, void *param)
 {
     rt_tick_increase();
@@ -49,3 +50,4 @@ void rt_hw_secondary_cpu_idle_exec(void)
 {
     /* todo: wait for wakeup or do nothing*/
 }
+#endif /*RT_USING_SMP*/
