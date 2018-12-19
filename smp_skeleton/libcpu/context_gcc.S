@@ -20,12 +20,14 @@
  */
 .globl rt_hw_interrupt_disable
 rt_hw_interrupt_disable:
+    /* todo: mask interrupt, return previous state
 
 /*
  * void rt_hw_interrupt_enable(rt_base_t level);
  */
 .globl rt_hw_interrupt_enable
 rt_hw_interrupt_enable:
+    /* todo: restore interrupt state with given value
 
 /*
  * #ifdef RT_USING_SMP
