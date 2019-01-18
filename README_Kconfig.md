@@ -19,17 +19,17 @@ Kconfig源自Linux Kernel，是Linux Kernel的典型、成熟配置方式，也�
 ```Kconfig
 mainmenu "RT-Thread Project Configuration"
 
-config $BSP_DIR
+config BSP_DIR
     string
     option env="BSP_ROOT"
     default "."
 
-config $RTT_DIR
+config RTT_DIR
     string
     option env="RTT_ROOT"
     default "../.."
 
-config $PKGS_DIR
+config PKGS_DIR
     string
     option env="PKGS_ROOT"
     default "packages"
