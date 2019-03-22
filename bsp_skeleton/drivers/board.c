@@ -9,14 +9,11 @@
 
 #include <rthw.h>
 #include <rtthread.h>
-
 #include "board.h"
 
 /**
  * This function is used to display a string on console, normally, it's
  * invoked by rt_kprintf
- *
- * @param str the displayed string
  */
 void rt_hw_console_output(const char *str)
 {
@@ -31,13 +28,12 @@ void rt_hw_console_output(const char *str)
     }
 }
 
-
 void rt_hw_board_init(void)
 {
 
 #ifdef RT_USING_HEAP
     /* initialize memory system */
-    rt_system_heap_init(RT_HW_HEAP_BEGIN, RT_HW_HEAP_END);
+    rt_system_heap_init(HEAP_BEGIN,HEAP_END);
 #endif
 
 #ifdef RT_USING_COMPONENTS_INIT
@@ -48,5 +44,4 @@ void rt_hw_board_init(void)
     /* set console device */
     rt_console_set_device(RT_CONSOLE_DEVICE_NAME);
 #endif
-
 }

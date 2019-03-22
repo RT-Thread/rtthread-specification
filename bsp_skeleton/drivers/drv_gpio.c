@@ -9,8 +9,9 @@
 
 #include <rtthread.h>
 #include <rtdevice.h>
-
 #include "drv_gpio.h"
+
+#ifdef RT_USING_PIN
 
 static void skt_pin_mode(struct rt_device *device, rt_base_t pin, rt_base_t mode)
 {
@@ -76,3 +77,5 @@ int rt_hw_pin_init(void)
     return ret;
 }
 INIT_BOARD_EXPORT(rt_hw_pin_init);
+
+#endif /* RT_USING_PIN */

@@ -9,10 +9,13 @@
 
 #include <rtthread.h>
 #include <rtdevice.h>
-
 #include "drv_spi.h"
 
+#ifdef RT_USING_SPI
+
 #define SKT_SPI_DEVICE(spi_bus)    (struct skt_spi_bus *)(spi_bus)
+
+static struct skt_spi_bus spi_bus0;
 
 struct skt_spi_bus
 {
@@ -59,7 +62,6 @@ const static struct rt_spi_ops skt_spi_ops =
 int rt_hw_spi_init(void)
 {
     rt_err_t ret = RT_EOK;
-    static struct skt_spi_bus spi_bus0;
 
     /* Todo: Init SPI Hardware */
 
@@ -68,4 +70,7 @@ int rt_hw_spi_init(void)
     return ret;
 }
 INIT_DEVICE_EXPORT(rt_hw_spi_init);
+
+#endif /* RT_USING_SPI */
+
 

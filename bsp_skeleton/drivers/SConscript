@@ -1,52 +1,49 @@
-# RT-Thread building script for component
-
 from building import *
 
 cwd     = GetCurrentDir()
+CPPPATH = [cwd]
 src     = Split('''
                 board.c
                 drv_uart.c
                 ''')
 
-CPPPATH = [cwd]
-
-if GetDepend('RT_USING_ADC'):
+if GetDepend('BSP_USING_ADC'):
     src += ['drv_adc.c']
 
-if GetDepend('RT_USING_CPUTIME'):
+if GetDepend('BSP_USING_CPUTIME'):
     src += ['drv_cputime.c']
 
-if GetDepend('RT_USING_LWIP'):
+if GetDepend('BSP_USING_EMAC'):
     src += ['drv_emac.c']
 
-if GetDepend('RT_USING_PIN'):
+if GetDepend('BSP_USING_PIN'):
     src += ['drv_gpio.c']
 
-if GetDepend('RT_USING_HWTIMER'):
+if GetDepend('BSP_USING_HWTIMER0') or GetDepend('BSP_USING_HWTIMER1'):
     src += ['drv_hwtimer.c']
-    
-if GetDepend('RT_USING_I2C'):
+
+if GetDepend('BSP_USING_I2C0') or GetDepend('BSP_USING_I2C1'):
     src += ['drv_i2c.c']
 
 if GetDepend('PKG_USING_GUIENGINE'):
     src += ['drv_lcd.c']
 
-if GetDepend('RT_USING_PWM'):
+if GetDepend('BSP_USING_PWM0')or GetDepend('BSP_USING_PWM1'):
     src += ['drv_pwm.c']
 
-if GetDepend('RT_USING_RTC'):
+if GetDepend('BSP_USING_RTC'):
     src += ['drv_rtc.c']
 
-if GetDepend('RT_USING_SDIO'):
+if GetDepend('BSP_USING_SDIO'):
     src += ['drv_sdio.c']
 
-if GetDepend('RT_USING_SPI'):
+if GetDepend('BSP_USING_SPI0') or GetDepend('BSP_USING_SPI0'):
     src += ['drv_spi.c']
 
-if GetDepend('RT_USING_WDT'):
+if GetDepend('BSP_USING_WDT'):
     src += ['drv_wdt.c']
 
-if GetDepend(['RT_USING_WIFI']):
+if GetDepend(['BSP_USING_WIFI']):
     src += ['drv_wlan.c']
 
 group = DefineGroup('Drivers', src, depend = [''], CPPPATH = CPPPATH)

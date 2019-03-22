@@ -10,11 +10,14 @@
 #include <rthw.h>
 #include <rtthread.h>
 #include <rtdevice.h>
-
 #include "board.h"
 #include "drv_uart.h"
 
+#ifdef RT_USING_SERIAL
+
 #define SKT_UART_DEVICE(uart)    (struct skt_uart_dev *)(uart)
+
+static struct skt_uart_dev uart0_dev;
 
 struct skt_uart_dev
 {
@@ -156,7 +159,7 @@ const static struct rt_uart_ops _uart_ops =
 int rt_hw_uart_init(void)
 {
     rt_err_t ret = RT_EOK;
-    static struct skt_uart_dev uart0_dev;
+
     struct serial_configure config = RT_SERIAL_CONFIG_DEFAULT;
 
     uart0_dev.parent.ops = &_uart_ops;
@@ -174,3 +177,5 @@ int rt_hw_uart_init(void)
     return ret;
 }
 INIT_DEVICE_EXPORT(rt_hw_uart_init);
+
+#endif /* RT_USING_SERIAL */

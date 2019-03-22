@@ -9,14 +9,16 @@
 
 #include <rtthread.h>
 #include <rtdevice.h>
-
 #include <netif/ethernetif.h>
-
 #include <lwipopts.h>
 #include "drv_emac.h"
 
+#ifdef RT_USING_LWIP
+
 #define MAX_ADDR_LEN            6
 #define SKT_EMAC_DEVICE(eth)    (struct skt_emac_dev*)(eth)
+
+static struct skt_emac_dev emac_dev;
 
 struct skt_emac_dev
 {
@@ -143,7 +145,6 @@ const static struct rt_device_ops skt_emac_ops =
 int rt_hw_emac_init(void)
 {
     rt_err_t ret = RT_EOK;
-    static struct skt_emac_dev emac_dev;
     /* test MAC address */
     emac_dev.dev_addr[0] = 0x00;
     emac_dev.dev_addr[1] = 0x11;
@@ -174,3 +175,4 @@ int rt_hw_emac_init(void)
 }
 INIT_DEVICE_EXPORT(rt_hw_emac_init);
 
+#endif /* RT_USING_LWIP */
