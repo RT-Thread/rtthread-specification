@@ -1,0 +1,18 @@
+from building import *
+import rtconfig
+
+cwd     = GetCurrentDir()
+CPPPATH = [cwd + '/CMSIS/CoreSupport', cwd + '/CMSIS/DeviceSupport', cwd + '/XXX_StdPeriph_Driver']
+src     = Glob('CMSIS/DeviceSupport/*.c')
+src += Glob('XXX_StdPeriph_Driver/*.c')
+
+if rtconfig.CROSS_TOOL == 'gcc':
+    src += ['CMSIS/startup_xxx.s']
+elif rtconfig.CROSS_TOOL == 'keil':
+    src += ['CMSIS/startup_xxx.s']
+elif rtconfig.CROSS_TOOL == 'iar':
+    src += ['CMSIS/startup_xxx.s']
+
+group = DefineGroup('Libraries', src, depend = [''], CPPPATH = CPPPATH)
+
+Return('group')

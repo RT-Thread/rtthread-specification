@@ -12,7 +12,11 @@
 #include <rtdevice.h>
 #include "drv_hwtimer.h"
 
+#ifdef RT_USING_HWTIMER
+
 #define SKT_HWTIMER_DEVICE(hwtimer)    (struct skt_hwtimer_dev *)(hwtimer)
+
+static struct skt_hwtimer_dev hwtimer0;
 
 struct skt_hwtimer_dev
 {
@@ -133,7 +137,6 @@ const static struct rt_hwtimer_info hwtimer_info =
 int rt_hw_hwtimer_init(void)
 {
     rt_err_t ret = RT_EOK;
-    static struct skt_hwtimer_dev hwtimer0;
     hwtimer0.parent.info = &hwtimer_info;
     hwtimer0.parent.ops  = &hwtimer_ops;
 
@@ -143,3 +146,4 @@ int rt_hw_hwtimer_init(void)
 }
 INIT_DEVICE_EXPORT(rt_hw_hwtimer_init);
 
+#endif /* RT_USING_HWTIMER */

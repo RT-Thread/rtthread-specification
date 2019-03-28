@@ -17,10 +17,10 @@ config PKGS_DIR
 
 source "$RTT_DIR/Kconfig"
 source "$PKGS_DIR/Kconfig"
+source "drivers/Kconfig"
 
 config BOARD_SKELETON
     bool
+    select ARCH_ARM_CORTEX_M4
     default y
-
-source "driver/Kconfig"
 

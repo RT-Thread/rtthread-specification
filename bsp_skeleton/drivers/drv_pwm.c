@@ -11,7 +11,11 @@
 #include <rtthread.h>
 #include "drv_pwm.h"
 
+#ifdef RT_USING_PWM
+
 #define SKT_PWM_DEVICE(pwm)    (struct skt_pwm_dev *)(pwm)
+
+static struct skt_pwm_dev pwm_dev0;
 
 struct skt_pwm_dev
 {
@@ -84,7 +88,6 @@ const static struct rt_pwm_ops skt_pwm_ops =
 int rt_hw_pwm_init(void)
 {
     rt_err_t ret = RT_EOK;
-    static struct skt_pwm_dev pwm_dev0;
 
     /* Todo: Init PWM Hardware */
 
@@ -93,3 +96,5 @@ int rt_hw_pwm_init(void)
     return ret;
 }
 INIT_DEVICE_EXPORT(rt_hw_pwm_init);
+
+#endif /* RT_USING_PWM */

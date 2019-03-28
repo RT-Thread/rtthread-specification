@@ -12,7 +12,11 @@
 #include "board.h"
 #include "drv_adc.h"
 
+#ifdef RT_USING_ADC
+
 #define SKT_ADC_DEVICE(adc_dev)    (struct skt_adc_dev *)(adc_dev)
+
+static struct skt_adc_dev adc_dev0;
 
 struct skt_adc_dev
 {
@@ -59,7 +63,6 @@ const static struct rt_adc_ops skt_adc_ops =
 int rt_hw_adc_init(void)
 {
     rt_err_t ret = RT_EOK;
-    static struct skt_adc_dev adc_dev0;
 
     /* Todo: Init adc Hardware */
 
@@ -68,3 +71,5 @@ int rt_hw_adc_init(void)
     return ret;
 }
 INIT_DEVICE_EXPORT(rt_hw_adc_init);
+
+#endif /* RT_USING_ADC */

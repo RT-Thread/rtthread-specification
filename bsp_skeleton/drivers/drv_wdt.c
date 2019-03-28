@@ -9,8 +9,11 @@
 
 #include <rtdevice.h>
 #include <rtthread.h>
-
 #include "drv_wdt.h"
+
+#ifdef RT_USING_WDT
+
+static struct rt_watchdog_device wdt_dev;
 
 static rt_err_t skt_wdt_init(rt_watchdog_t *wdt)
 {
@@ -60,7 +63,6 @@ const static struct rt_watchdog_ops skt_wdt_ops =
 int rt_hw_wdt_init(void)
 {
     rt_err_t ret = RT_EOK;
-    static struct rt_watchdog_device wdt_dev;
 
     wdt_dev.ops = &skt_wdt_ops;
 
@@ -68,4 +70,6 @@ int rt_hw_wdt_init(void)
 
     return ret;
 }
-INIT_DEVICE_EXPORT(rt_hw_wdt_init);
+INIT_BOARD_EXPORT(rt_hw_wdt_init);
+
+#endif /* RT_USING_WDT */

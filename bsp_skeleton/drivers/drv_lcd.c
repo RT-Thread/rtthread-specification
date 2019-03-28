@@ -11,6 +11,9 @@
 #include <rtthread.h>
 #include "drv_lcd.h"
 
+static struct rt_device_graphic_info lcd_info;
+static struct rt_device lcd_dev;
+
 static rt_err_t skt_lcd_init(rt_device_t dev)
 {
     rt_err_t ret = RT_EOK;
@@ -111,8 +114,6 @@ const static struct rt_device_ops skt_lcd_ops =
 int rt_hw_lcd_init(void)
 {
     rt_err_t ret = RT_EOK;
-    static struct rt_device_graphic_info lcd_info;
-    static struct rt_device lcd_dev;
 
     /* Todo: Init lcd_info */
 

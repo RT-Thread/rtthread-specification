@@ -1,0 +1,130 @@
+menu "Hardware Drivers Config"
+
+    menu "On-chip Peripheral Drivers"
+
+        config BSP_USING_GPIO
+            bool "Enable GPIO"
+            select RT_USING_PIN
+            default y
+
+        config BSP_USING_LCD
+            bool "Enable LCD"
+            select BSP_USING_LTDC
+            select BSP_USING_SDRAM
+            default n
+
+        config BSP_USING_RTC
+            bool "Enable RTC"
+            select RT_USING_RTC
+            default n
+
+        config BSP_USING_WDT
+            bool "Enable Watch Dog"
+            select RT_USING_WDT
+            default n
+
+        config BSP_USING_ADC
+            bool "Enable ADC"
+            select RT_USING_ADC
+            default n
+
+        config BSP_USING_CPUTIME
+            bool "Enable CPUTIME"
+            select RT_USING_CPUTIME
+            default n
+
+        config BSP_USING_WIFI
+            bool "Enable WIFI"
+            select RT_USING_WIFI
+            default n
+
+        config BSP_USING_EMAC
+            bool "Enable EMAC"
+            select RT_USING_LWIP
+            default n
+
+        menu "HWtimer Drivers"
+            config BSP_USING_HWTIMER0
+                bool "Using timer0"
+                select RT_USING_HWTIMER 
+                default n
+
+            config BSP_USING_HWTIMER1
+                bool "Using timer1"
+                select RT_USING_HWTIMER 
+                default n
+        endmenu
+
+        menu "I2C Drivers"
+            config BSP_USING_I2C0
+                bool "Enable I2C0 BUS (software simulation)"
+                select RT_USING_I2C
+                select RT_USING_PIN
+                select RT_USING_I2C_BITOPS
+                default n
+
+                if BSP_USING_I2C0
+                     config BSP_I2C0_SCL_PIN  
+                        int "i2c0 SCL Pin number"
+                        default 98
+
+                    config BSP_I2C0_SDA_PIN
+                        int "i2c0 SDA Pin number"
+                        default 99
+                endif
+                
+            config BSP_USING_I2C1
+                bool "Enable I2C1 BUS (PB10/11,SCL/SDA)"
+                select RT_USING_I2C
+                default n
+        endmenu
+
+        menu "PWM Drivers"
+            config BSP_USING_PWM0
+                bool "Using PWM0 (PA8/9,CH1/CH2)"
+                select RT_USING_PWM
+                default n
+
+            config BSP_USING_PWM1
+                bool "Using PWM1 (PB6/7,CH1/CH2))"
+                select RT_USING_PWM
+                default n
+        endmenu
+
+        menu "SPI Drivers"
+            config BSP_USING_SPI0
+                bool "Enable SPI0 BUS (PC4/5/6,SCLK/MOSI/MISO)"
+                select RT_USING_SPI
+                select RT_USING_PIN
+                default n 
+
+            config BSP_USING_SPI1
+                bool "Enable SPI1 BUS (PC5/2/3,SCLK/MOSI/MISO)"
+                select RT_USING_SPI
+                select RT_USING_PIN
+                default n
+        endmenu
+
+        menu "UART Drivers"
+            config BSP_USING_UART0
+                bool "Enable UART0 (PA2/3,RX/TX)"
+                select RT_USING_SERIAL
+                default y
+
+            config BSP_USING_UART1
+                bool "Enable UART1 (PC2/3,RX/TX)"
+                select RT_USING_SERIAL
+                default n
+        endmenu
+
+    endmenu
+
+    menu "Onboard Peripheral Drivers"
+
+    endmenu
+
+    menu "Offboard Peripheral Drivers"
+
+    endmenu
+
+endmenu

@@ -10,6 +10,8 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 
+#ifdef RT_USING_WIFI
+
 #define WIFI_STA_INTERFACE  (0x00)
 #define WIFI_AP_INTERFACE   (0x01)
 
@@ -642,11 +644,12 @@ const static struct rt_wlan_dev_ops ops =
     .wlan_send          = wlan_send,
 };
 
+static struct rt_wlan_device wlan_sta;
+static struct rt_wlan_device wlan_ap;
+
 int rt_hw_wlan_init(void)
 {
     rt_err_t ret = RT_EOK;
-    static struct rt_wlan_device wlan_sta;
-    static struct rt_wlan_device wlan_ap;
 
     wifi_sta.wlan = &wlan_sta;
     wifi_ap.wlan = &wlan_ap;
@@ -665,3 +668,6 @@ int rt_hw_wlan_init(void)
     return ret;
 }
 INIT_DEVICE_EXPORT(rt_hw_wlan_init);
+
+#endif /* RT_USING_WIFI */
+

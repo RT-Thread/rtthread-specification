@@ -9,9 +9,10 @@
 
 #include <rtdevice.h>
 #include <rtthread.h>
-
 #include "drv_cputime.h"
 #include <board.h>
+
+#ifdef RT_USING_CPUTIME
 
 static float skt_cputime_getres(void)
 {
@@ -36,3 +37,5 @@ int rt_hw_cputime_init(void)
     return 0;
 }
 INIT_BOARD_EXPORT(rt_hw_cputime_init);
+
+#endif /* RT_USING_CPUTIME */

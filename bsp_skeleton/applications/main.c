@@ -7,12 +7,25 @@
  * Date           Author       Notes
  */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <rtthread.h>
+#include <rtdevice.h>
 
-int main(int argc, char** argv)
+/* defined the LED0  pin: PB1 */
+#define LED0_PIN	60
+
+int main(void)
 {
-    printf("Hello RT-Thread!\n");
+    int count = 1;
+    /* set LED0 pin mode to output */
+    rt_pin_mode(LED0_PIN, PIN_MODE_OUTPUT);
 
-    return 0;
+    while (count++)
+    {
+        rt_pin_write(LED0_PIN, PIN_HIGH);
+        rt_thread_mdelay(500);
+        rt_pin_write(LED0_PIN, PIN_LOW);
+        rt_thread_mdelay(500);
+    }
+
+    return RT_EOK;
 }

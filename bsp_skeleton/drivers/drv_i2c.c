@@ -11,7 +11,11 @@
 #include <rtthread.h>
 #include "drv_i2c.h"
 
+#ifdef RT_USING_I2C
+
 #define SKT_I2C_DEVICE(i2c_bus)    (struct skt_i2c_bus *)(i2c_bus)
+
+static struct skt_i2c_bus i2c_bus0;
 
 struct skt_i2c_bus
 {
@@ -39,7 +43,6 @@ const static struct rt_i2c_bus_device_ops skt_i2c_ops =
 int rt_hw_i2c_init(void)
 {
     rt_err_t ret = RT_EOK;
-    static struct skt_i2c_bus i2c_bus0;
 
     i2c_bus0.parent.ops = &skt_i2c_ops;
 
@@ -50,3 +53,5 @@ int rt_hw_i2c_init(void)
     return ret;
 }
 INIT_DEVICE_EXPORT(rt_hw_i2c_init);
+
+#endif /* RT_USING_I2C */
