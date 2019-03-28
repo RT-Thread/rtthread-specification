@@ -14,6 +14,8 @@
 /**
  * This function is used to display a string on console, normally, it's
  * invoked by rt_kprintf
+ *
+ * @param str the displayed string
  */
 void rt_hw_console_output(const char *str)
 {
