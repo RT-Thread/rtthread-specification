@@ -14,10 +14,12 @@
 #define RT_USING_OVERFLOW_CHECK
 #define RT_USING_HOOK
 #define RT_USING_IDLE_HOOK
-#define RT_IDEL_HOOK_LIST_SIZE 4
+#define RT_IDLE_HOOK_LIST_SIZE 4
 #define IDLE_THREAD_STACK_SIZE 256
+#define RT_USING_TIMER_SOFT
+#define RT_TIMER_THREAD_PRIO 4
+#define RT_TIMER_THREAD_STACK_SIZE 512
 #define RT_DEBUG
-#define RT_DEBUG_COLOR
 
 /* Inter-Thread communication */
 
@@ -38,8 +40,8 @@
 #define RT_USING_DEVICE
 #define RT_USING_CONSOLE
 #define RT_CONSOLEBUF_SIZE 128
-#define RT_CONSOLE_DEVICE_NAME "uart"
-#define RT_VER_NUM 0x40001
+#define RT_CONSOLE_DEVICE_NAME "uart1"
+#define RT_VER_NUM 0x40002
 
 /* RT-Thread Components */
 
@@ -77,9 +79,6 @@
 #define RT_SERIAL_RB_BUFSZ 64
 #define RT_USING_PIN
 
-/* Using WiFi */
-
-
 /* Using USB */
 
 
@@ -91,10 +90,10 @@
 /* Socket abstraction layer */
 
 
+/* Network interface device */
+
+
 /* light weight TCP/IP stack */
-
-
-/* Modbus master and slave stack */
 
 
 /* AT commands */
@@ -146,32 +145,25 @@
 /* samples: kernel and components samples */
 
 
+/* Privated Packages of RealThread */
+
+
+/* Network Utilities */
+
+
 /* Hardware Drivers Config */
+
+#define SOC_STM32L475VE
+
+/* Onboard Peripheral Drivers */
 
 /* On-chip Peripheral Drivers */
 
 #define BSP_USING_GPIO
+#define BSP_USING_UART
+#define BSP_USING_UART1
 
-/* HWtimer Drivers */
+/* Board extended module Drivers */
 
-
-/* I2C Drivers */
-
-
-/* PWM Drivers */
-
-
-/* SPI Drivers */
-
-
-/* UART Drivers */
-
-#define BSP_USING_UART0
-
-/* Onboard Peripheral Drivers */
-
-/* Offboard Peripheral Drivers */
-
-#define BOARD_SKELETON
 
 #endif

@@ -10,7 +10,7 @@
       <name>General</name>
       <archiveVersion>3</archiveVersion>
       <data>
-        <version>29</version>
+        <version>31</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -65,7 +65,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>8.11.3.13977</state>
+          <state>8.32.1.18618</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -111,11 +111,11 @@
         </option>
         <option>
           <name>RTConfigPath2</name>
-          <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Normal.h</state>
+          <state>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</state>
         </option>
         <option>
           <name>GBECoreSlave</name>
-          <version>25</version>
+          <version>26</version>
           <state>39</state>
         </option>
         <option>
@@ -132,7 +132,7 @@
         </option>
         <option>
           <name>CoreVariant</name>
-          <version>25</version>
+          <version>26</version>
           <state>39</state>
         </option>
         <option>
@@ -155,7 +155,7 @@
         </option>
         <option>
           <name>GFPUCoreSlave2</name>
-          <version>25</version>
+          <version>26</version>
           <state>39</state>
         </option>
         <option>
@@ -199,13 +199,22 @@
           <name>DSPExtension</name>
           <state>1</state>
         </option>
+        <option>
+          <name>TrustZone</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>TrustZoneModes</name>
+          <version>0</version>
+          <state>0</state>
+        </option>
       </data>
     </settings>
     <settings>
       <name>ICCARM</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>34</version>
+        <version>35</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -215,6 +224,7 @@
         <option>
           <name>CCDefines</name>
           <state />
+          <state>SCM402F</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -340,18 +350,19 @@
         <option>
           <name>CCIncludePath2</name>
           <state />
-          <state>$PROJ_DIR$\Libraries\XXX_StdPeriph_Driver</state>
+          <state>$PROJ_DIR$\libraries\XXX_StdPeriph_Driver</state>
           <state>$PROJ_DIR$\applications</state>
-          <state>$PROJ_DIR$\Libraries\CMSIS\DeviceSupport</state>
+          <state>$PROJ_DIR$\libraries\CMSIS\DeviceSupport</state>
           <state>$PROJ_DIR$\drivers</state>
-          <state>$PROJ_DIR$\libcpu</state>
+          <state>$PROJ_DIR$\..\..\components\libc\compilers\common</state>
+          <state>$PROJ_DIR$\.</state>
           <state>$PROJ_DIR$\..\..\include</state>
           <state>$PROJ_DIR$\..\..\libcpu\arm\cortex-m4</state>
+          <state>$PROJ_DIR$\board</state>
           <state>$PROJ_DIR$\..\..\components\drivers\include</state>
           <state>$PROJ_DIR$\..\..\libcpu\arm\common</state>
-          <state>$PROJ_DIR$\.</state>
           <state>$PROJ_DIR$\..\..\components\finsh</state>
-          <state>$PROJ_DIR$\Libraries\CMSIS\CoreSupport</state>
+          <state>$PROJ_DIR$\libraries\CMSIS\CoreSupport</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -464,6 +475,10 @@
         <option>
           <name>IccRTTI2</name>
           <state>0</state>
+        </option>
+        <option>
+          <name>OICompilerExtraOption</name>
+          <state>1</state>
         </option>
       </data>
     </settings>
@@ -685,7 +700,7 @@
       <name>ILINK</name>
       <archiveVersion>0</archiveVersion>
       <data>
-        <version>20</version>
+        <version>22</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -766,7 +781,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$PROJ_DIR$\drivers\linker_scripts\link.icf</state>
+          <state>$PROJ_DIR$\board\linker_scripts\link.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -997,6 +1012,14 @@
           <name>IlinkLocaleSelect</name>
           <state>1</state>
         </option>
+        <option>
+          <name>IlinkTrustzoneImportLibraryOut</name>
+          <state>template_import_lib.o</state>
+        </option>
+        <option>
+          <name>OILinkExtraOption</name>
+          <state>1</state>
+        </option>
       </data>
     </settings>
     <settings>
@@ -1036,7 +1059,7 @@
       <name>General</name>
       <archiveVersion>3</archiveVersion>
       <data>
-        <version>29</version>
+        <version>31</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
@@ -1141,7 +1164,7 @@
         </option>
         <option>
           <name>GBECoreSlave</name>
-          <version>25</version>
+          <version>26</version>
           <state>1</state>
         </option>
         <option>
@@ -1158,7 +1181,7 @@
         </option>
         <option>
           <name>CoreVariant</name>
-          <version>25</version>
+          <version>26</version>
           <state>0</state>
         </option>
         <option>
@@ -1181,7 +1204,7 @@
         </option>
         <option>
           <name>GFPUCoreSlave2</name>
-          <version>25</version>
+          <version>26</version>
           <state>0</state>
         </option>
         <option>
@@ -1225,13 +1248,22 @@
           <name>DSPExtension</name>
           <state>0</state>
         </option>
+        <option>
+          <name>TrustZone</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>TrustZoneModes</name>
+          <version>0</version>
+          <state>0</state>
+        </option>
       </data>
     </settings>
     <settings>
       <name>ICCARM</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>34</version>
+        <version>35</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
@@ -1240,6 +1272,8 @@
         </option>
         <option>
           <name>CCDefines</name>
+          <state />
+          <state>SCM402F</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -1365,18 +1399,19 @@
         <option>
           <name>CCIncludePath2</name>
           <state />
-          <state>$PROJ_DIR$\Libraries\XXX_StdPeriph_Driver</state>
+          <state>$PROJ_DIR$\libraries\XXX_StdPeriph_Driver</state>
           <state>$PROJ_DIR$\applications</state>
-          <state>$PROJ_DIR$\Libraries\CMSIS\DeviceSupport</state>
+          <state>$PROJ_DIR$\libraries\CMSIS\DeviceSupport</state>
           <state>$PROJ_DIR$\drivers</state>
-          <state>$PROJ_DIR$\libcpu</state>
+          <state>$PROJ_DIR$\..\..\components\libc\compilers\common</state>
+          <state>$PROJ_DIR$\.</state>
           <state>$PROJ_DIR$\..\..\include</state>
           <state>$PROJ_DIR$\..\..\libcpu\arm\cortex-m4</state>
+          <state>$PROJ_DIR$\board</state>
           <state>$PROJ_DIR$\..\..\components\drivers\include</state>
           <state>$PROJ_DIR$\..\..\libcpu\arm\common</state>
-          <state>$PROJ_DIR$\.</state>
           <state>$PROJ_DIR$\..\..\components\finsh</state>
-          <state>$PROJ_DIR$\Libraries\CMSIS\CoreSupport</state>
+          <state>$PROJ_DIR$\libraries\CMSIS\CoreSupport</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1489,6 +1524,10 @@
         <option>
           <name>IccRTTI2</name>
           <state>0</state>
+        </option>
+        <option>
+          <name>OICompilerExtraOption</name>
+          <state>1</state>
         </option>
       </data>
     </settings>
@@ -1710,7 +1749,7 @@
       <name>ILINK</name>
       <archiveVersion>0</archiveVersion>
       <data>
-        <version>20</version>
+        <version>22</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
@@ -2022,6 +2061,14 @@
           <name>IlinkLocaleSelect</name>
           <state>1</state>
         </option>
+        <option>
+          <name>IlinkTrustzoneImportLibraryOut</name>
+          <state>###Unitialized###</state>
+        </option>
+        <option>
+          <name>OILinkExtraOption</name>
+          <state>1</state>
+        </option>
       </data>
     </settings>
     <settings>
@@ -2058,9 +2105,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\src\components.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\src\cpu.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\src\device.c</name>
@@ -2104,29 +2148,23 @@
     <file>
       <name>$PROJ_DIR$\applications\main.c</name>
     </file>
-    <file>
-      <name>$PROJ_DIR$\applications\mnt.c</name>
-    </file>
   </group>
   <group>
     <name>Drivers</name>
     <file>
-      <name>$PROJ_DIR$\drivers\board.c</name>
+      <name>$PROJ_DIR$\board\board.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\drivers\drv_uart.c</name>
     </file>
-  </group>
-  <group>
-    <name>CPU</name>
     <file>
-      <name>$PROJ_DIR$\libcpu\port.c</name>
+      <name>$PROJ_DIR$\drivers\drv_gpio.c</name>
     </file>
   </group>
   <group>
     <name>Libraries</name>
     <file>
-      <name>$PROJ_DIR$\Libraries\CMSIS\startup_xxx.s</name>
+      <name>$PROJ_DIR$\libraries\CMSIS\startup_xxx.s</name>
     </file>
   </group>
   <group>
@@ -2183,19 +2221,10 @@
       <name>$PROJ_DIR$\..\..\components\finsh\shell.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\components\finsh\symbol.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\..\components\finsh\cmd.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\components\finsh\msh.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\components\finsh\msh_cmd.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\components\finsh\msh_file.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\components\finsh\finsh_compiler.c</name>
@@ -2227,5 +2256,8 @@
     <file>
       <name>$PROJ_DIR$\..\..\components\finsh\finsh_token.c</name>
     </file>
+  </group>
+  <group>
+    <name>libc</name>
   </group>
 </project>

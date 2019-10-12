@@ -1,0 +1,16 @@
+import os
+import rtconfig
+from building import *
+
+cwd = GetCurrentDir()
+
+src = Split('''
+board.c
+''')
+
+path =  [cwd]
+
+CPPDEFINES = ['XXX']
+group = DefineGroup('Drivers', src, depend = [''], CPPPATH = path, CPPDEFINES = CPPDEFINES)
+
+Return('group')
