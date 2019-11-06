@@ -10,7 +10,7 @@
 
 一个新的移植，默认会添加到`rt-thread/bsp`目录下，在进行bsp文件夹命名时，请以如下规则进行：
 
-    MCU型号名称_BOARD名称
+    MCU型号名称-BOARD名称
 
 例如STM32的nucleo开发板BSP，如`NUCLEO-L476RG`，它使用的是64pin的STM32L476RG MCU，这个时候BSP可以命名为：
 
