@@ -33,7 +33,7 @@ skeleton 开发板是 xxx 公司推出的一款基于 ARM Cortex-M0 内核的开
 - 常用接口：GPIO、UART、SPI、I2C
 - 调试接口: 标准 JTAG/SWD
 
-开发板更多详细信息请参考【厂商名】[xxx 开发板介绍](https://xxx.com/index.htm)。
+开发板更多详细信息请参考【厂商名】[xxx 开发板介绍](https://example.com/index.htm)。
 
 ## 外设支持
 
@@ -126,9 +126,9 @@ xxx
 
 * [RT-Thread 文档中心](https://www.rt-thread.org/document/site/)
 
-* [xxx 开发板数据手册](http://abc.com/datasheet.pdf)
+* [xxx 开发板数据手册](https://example.com/datasheet.pdf)
 
-* [xxx 开发板参考手册](http://abc.com/reference.pdf)
+* [xxx 开发板参考手册](https://example.com/reference.pdf)
 
-* [xxx 芯片数据手册](http://abc.com/um.pdf)
+* [xxx 芯片数据手册](https://example.com/um.pdf)
 

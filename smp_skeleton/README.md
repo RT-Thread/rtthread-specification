@@ -64,5 +64,5 @@ skeleton芯片 是 cc 公司的一款面向 nn 等领域的芯片。包括如下
 * 芯片[数据手册][3]
 
   [1]: https://www.rt-thread.org/page/download.html
-  [2]: http://abc.com/datasheet.pdf
-  [3]: http://abc.com/um.pdf
+  [2]: https://example.com/datasheet.pdf
+  [3]: https://example.com/um.pdf
